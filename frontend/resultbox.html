@@ -57,15 +57,15 @@
                               </div>
                       </div>
                   </div>
-                 
+
                   <div class="row">
                       <div class="col-md-3">
                           <div class="form-group">
-                              
+
                               <input id="startDate" width="200" placeholder="Start Date"/>
-                              
+
                               <input id="endDate" width="200" placeholder="End Date"/>
-                              
+
                               <script>
                                   var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
                                   $('#startDate').datepicker({
@@ -88,13 +88,13 @@
                       </div>
                       <div class="col-md-3">
                           <div class="form-group">
-                              
+
                               <input type="text" class="form-control" id="query1" placeholder="Category"/>
                           </div>
                       </div>
                        <div class="col-md-3">
                           <div class="form-group">
-                              
+
                               <input type="text" class="form-control" id="" placeholder="Acts"/>
                           </div>
                       </div>
@@ -106,19 +106,19 @@
                       <div class="col-md-3"> </div>
                       <div class="col-md-3"> </div>
                       <div class="col-md-3"> </div>
-                      <div class="col-md-3 text-center" > 
-                          <button id="button" name="button" class="btn btn-primary" style="height:50px;width:200px;">Search</button> 
+                      <div class="col-md-3 text-center" >
+                          <button id="button" name="button" class="btn btn-primary" style="height:50px;width:200px;">Search</button>
                       </div>
               </form>
-                              
-      
-      
+
+
+
           </div>
-      </div>  
+      </div>
     </div>
     <br/>
-          
-      
+
+
       <!-------------------------------------------------------------------------------------------------------------------->
 
 
@@ -151,11 +151,41 @@
                         </tbody>
                       </table>
           </p>
-          <a href="#" class="btn btn-primary">Read More</a>
+
+
+          <span id="more" style="display:none;">
+          <div class="card summary">
+              <h5 class="card-header">Summary</h5>
+              <div class="card-body">
+                <h5 class="card-title">The Big Robbery</h5>
+                <p class="card-text">
+                  erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.
+                </p>
+              </div>
+          </div>
+          </span>
+          <br>
+
+          <a href="#" class="btn btn-primary" id="myBtn" onclick="myAss()">Read More</a>
+
+          <script>
+          function myAss() {
+            var moreText = document.getElementById("more");
+            var btnText = document.getElementById("myBtn");
+
+            if (moreText.style.display === "none") {
+              btnText.innerHTML = "Read Less";
+              moreText.style.display = "inline";
+            } else {
+              btnText.innerHTML = "Read More";
+              moreText.style.display = "none";
+            }
+        }
+        </script>
+
         </div>
       </div>
 
 
-     
   </body>
-</html>
+  </html>
