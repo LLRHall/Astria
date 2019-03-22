@@ -41,6 +41,32 @@
 <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js" type="text/javascript"></script>
+
+<script>
+  var options = {
+    shouldSort: true,
+    threshold: 0.2,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: ["data"],
+    
+   
+  };
+
+  $.getJSON("https://karannaoh.github.io/css/fonts/data.json", function(result){
+
+    fuse=new Fuse(result, options);
+
+  })
+
+
+</script>
+
+
     <title>Result box</title>
   </head>
   <body>
