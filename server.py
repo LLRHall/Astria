@@ -73,13 +73,26 @@ def query2():
    }})
 
    file_list=[]
-   x =[]
    for acts in res['hits']['hits']:
-      
-      x.append(acts['_source']['File_Name'].replace(' ','').split(','))
+      temp=list(acts['_source']['File_Name'].replace(' ','').split(','))
+      for i in temp:
+         if i!='\n':
+            file_list.append(i)
 
-   print(x)
-   print(file_list)
+   res = []
+   for i in file_list:
+      if i[-1]=='\n':
+         temp=i[:-5]
+      else:
+         temp=i[:-4]
+      # print(temp)
+      res.append(es.search(index="cases",
+      body={"query":{
+      "bool": {
+         "must": { "match":{"filename":temp}},
+      }
+      }}))
+   print(res)
    return "Yo"
 
 @app.route('/query3',methods=['GET','POST'])
