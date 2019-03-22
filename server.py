@@ -29,13 +29,20 @@ def query1():
    searchString=searchString[:-1]
    res = es.search(index="cases",
    body={"query":{
-   "match":{"legal-key":searchString},
-   "range" : {"date" : {"gte":"2 Oct 1980","lte":"2 Oct 2000","format":"dd  M  yyyy||dd  M  yyyy"}}}})
+   
+    "bool": {
+        "must":     { "match":{"legal-key":searchString}},
+        "filter": [
+           { "match":{"judge":judge}}
+        ]
+    }
 
+   }})
+   print("result is")
    for cases in res['hits']['hits']:
-      print(cases['_source']['title'])
+      print(cases['_source']['judge'])
 
-   return "OK"
+   return "Yo"
 
 if __name__ == '__main__':
    app.run(debug=True)
