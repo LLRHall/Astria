@@ -92,7 +92,11 @@ def query2():
          "must": { "match":{"filename":temp}},
       }
       }}))
-   print(res)
+   
+   for result in res:
+      for cases in result['hits']['hits']:
+         print(cases['_source']['title'])
+
    return "Yo"
 
 @app.route('/query3',methods=['GET','POST'])
