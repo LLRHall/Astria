@@ -33,7 +33,10 @@ def query1():
     "bool": {
         "must":     { "match":{"legal-key":searchString}},
         "filter": [
-           { "match":{"judge":judge}}
+           { "match":{"judge":judge}},
+           { "match":{"act-used":act}},
+           { "match":{"case-cat":cat}},
+           
         ]
     }
 
