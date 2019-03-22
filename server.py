@@ -22,6 +22,7 @@ def query1():
    judge=query[0]['judge']
    
    # print(type(keywordsList))
+   # print(toDate)
    searchString=""
    for q in keywordsList:
       searchString+=q+','
@@ -31,12 +32,12 @@ def query1():
    body={"query":{
    
     "bool": {
-        "must":     { "match":{"legal-key":searchString}},
+        "must": { "match":{"legal-key":searchString}},
         "filter": [
            { "match":{"judge":judge}},
            { "match":{"act-used":act}},
            { "match":{"case-cat":cat}},
-           
+           { "range": {"date" : {"gte":"1  January  1900","lte":"1  January  2500", "format":"d  M  y || d  M  y"}}}
         ]
     }
 
