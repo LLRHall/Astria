@@ -65,7 +65,6 @@ def query2():
    # print(toDate)
    
    print(actquery[0])
-   # searchString=searchString[:-1]
    res = es.search(index="acts",
    body={"query":{
     "bool": {
@@ -74,10 +73,12 @@ def query2():
    }})
 
    file_list=[]
-
+   x =[]
    for acts in res['hits']['hits']:
-      file_list.append(acts['_source']['File_Name'])
+      
+      x.append(acts['_source']['File_Name'].replace(' ','').split(','))
 
+   print(x)
    print(file_list)
    return "Yo"
 
