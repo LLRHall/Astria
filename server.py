@@ -8,7 +8,7 @@ app = Flask(__name__)
 def getRank(input_string):
 
     model = gensim.models.doc2vec.Doc2Vec.load("Model/NEW_D2V.model")
-    similar_doc = model.docvecs.most_similar(positive=[model.infer_vector(input_string.split())],topn=5)
+    similar_doc = model.docvecs.most_similar(positive=[model.infer_vector(input_string.split())],topn=10)
     return similar_doc 
 
 @app.route('/')
@@ -177,8 +177,8 @@ def query4():
     cat = query[0]['cat']
     act = query[0]['act']
     judge = query[0]['judge']
-
-    tuple_list = getRank(searchString)
+    
+    tuple_list = getRank(searchString[0])
     file_list = [i[0] for i in tuple_list]
     
     res = []
@@ -187,7 +187,7 @@ def query4():
             temp = i[:-5]
         else:
             temp = i[:-4]
-
+        print(temp)
         res.append(es.search(index="cases",
                              body={"query": {
                                  "bool": {
