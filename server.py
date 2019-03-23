@@ -14,7 +14,6 @@ def hello_world():
 def query1():
    
    query = request.get_json()
-   # print(query)
    
    keywordsList=query[0]['query']
    fromDate=query[0]['time']['from']
@@ -43,16 +42,16 @@ def query1():
         "must": { "match":{"legal-key":searchString}},
         "filter": [
            { "wildcard":{"judge":{"value":judge}}},
-           { "wildcard":{"act-used":{"value":act}}},
+        ],
+        "should": [
            { "wildcard":{"case-cat":{"value":cat}}},
+           { "wildcard":{"act-used":{"value":act}}},
+           { "wildcard":{"subject":{"value":cat}}},           
         ]
     }
 
    }})
-   # print("result is")
-   # for cases in res['hits']['hits']:
-   #    print(cases['_source']['judge'])
-   # print(res)
+   
    return jsonify(res['hits']['hits'])
 
 @app.route('/query2',methods=['GET','POST'])
@@ -73,7 +72,6 @@ def query2():
    if cat=="":
       cat="*"
    
-   print(actquery[0])
    res = es.search(index="acts",
    body={"query":{
     "bool": {
@@ -101,8 +99,11 @@ def query2():
          "must": { "match":{"filename":temp}},
          "filter": [
            { "wildcard":{"judge":{"value":judge}}},
-           { "wildcard":{"act-used":{"value":act}}},
+        ],
+        "should": [
            { "wildcard":{"case-cat":{"value":cat}}},
+           { "wildcard":{"act-used":{"value":act}}},
+           { "wildcard":{"subject":{"value":cat}}},           
         ]
       }
       }}))
@@ -118,7 +119,6 @@ def query2():
 def query3():
    
    query = request.get_json()
-   # print(query)
    
    searchString=query[0]['query']
    fromDate=query[0]['time']['from']
@@ -133,29 +133,26 @@ def query3():
       act="*"
    if cat=="":
       cat="*"
-   # print(type(keywordsList))
-   # print(toDate)
-   #  = 
 
-   # searchString=searchString[:-1]
    res = es.search(index="cases",
    body={"query":{
    
     "bool": {
-        "must": { "match":{"title":searchString}},
+        "must": { "match":{"title":searchString[0]}},
         "filter": [
            { "wildcard":{"judge":{"value":judge}}},
-           { "wildcard":{"act-used":{"value":act}}},
+        ],
+        "should": [
            { "wildcard":{"case-cat":{"value":cat}}},
+           { "wildcard":{"act-used":{"value":act}}},
+           { "wildcard":{"subject":{"value":cat}}},           
         ]
     }
 
    }})
-   print("result is")
-   for cases in res['hits']['hits']:
-      print(cases['_source']['judge'])
+   
 
-   return "Yo"
+   return jsonify(res['hits']['hits'])
 
 @app.route('/query4',methods=['GET','POST'])
 def query4():
