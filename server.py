@@ -39,7 +39,7 @@ def query1():
    body={"query":{
    
     "bool": {
-        "must": { "match":{"legal-key":searchString}},
+        "must": { "multi_match":{"query":searchString, "fields" : [ "legal-key", "subject" ]}},
         "filter": [
            { "wildcard":{"judge":{"value":judge}}},
         ],
