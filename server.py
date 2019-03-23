@@ -43,7 +43,6 @@ def query1():
         searchString += q+','
 
     searchString = searchString[:-1]
-    print(toDate, fromDate)
     res = es.search(index="cases",
                     body={"query": {
 
@@ -126,7 +125,6 @@ def query2():
     for result in res:
         resultReturn.append(result['hits']['hits'][0])
 
-    print(resultReturn)
     return jsonify(resultReturn)
 
 
@@ -214,7 +212,6 @@ def query4():
     for result in res:
         resultReturn.append(result['hits']['hits'][0])
 
-    print(resultReturn)
     return jsonify(resultReturn)
 
 
