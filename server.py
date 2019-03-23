@@ -5,11 +5,14 @@ import gensim
 es = Elasticsearch("http://localhost:9200")
 app = Flask(__name__)
 
+
 def getRank(input_string):
 
     model = gensim.models.doc2vec.Doc2Vec.load("Model/NEW_D2V.model")
-    similar_doc = model.docvecs.most_similar(positive=[model.infer_vector(input_string.split())],topn=10)
-    return similar_doc 
+    similar_doc = model.docvecs.most_similar(
+        positive=[model.infer_vector(input_string.split())], topn=10)
+    return similar_doc
+
 
 @app.route('/')
 def hello_world():
@@ -40,18 +43,18 @@ def query1():
         searchString += q+','
 
     searchString = searchString[:-1]
-    print(toDate,fromDate)
+    print(toDate, fromDate)
     res = es.search(index="cases",
                     body={"query": {
 
                         "bool": {
                             "must": {"multi_match": {"query": searchString, "fields": ["legal-key", "subject"]}},
                             "filter": [
-                                {"wildcard": {"judge": {"value": judge}}},
-                                {"range": {"date" : {"gte":"01-01-1900","lte":"01-01-2020", "format":"d MMMM yyyy"}}},
+                                {"range": {"date": {"gte": fromDate,
+                                                    "lte": toDate, "format": "yyyyMMdd"}}},
                             ],
                             "should": [
-                                
+                                {"wildcard": {"judge": {"value": judge}}},
                                 {"wildcard": {"case-cat": {"value": cat}}},
                                 {"wildcard": {"act-used": {"value": act}}},
                                 {"wildcard": {"subject": {"value": cat}}},
@@ -107,9 +110,11 @@ def query2():
                                  "bool": {
                                      "must": {"match": {"filename": temp}},
                                      "filter": [
-                                         {"wildcard": {"judge": {"value": judge}}},
+                                         {"range": {"date": {"gte": fromDate,
+                                                             "lte": toDate, "format": "yyyyMMdd"}}},
                                      ],
                                      "should": [
+                                         {"wildcard": {"judge": {"value": judge}}},
                                          {"wildcard": {"case-cat": {"value": cat}}},
                                          {"wildcard": {"act-used": {"value": act}}},
                                          {"wildcard": {"subject": {"value": cat}}},
@@ -150,8 +155,8 @@ def query3():
                         "bool": {
                             "must": {"match": {"title": searchString[0]}},
                             "filter": [
-                               {"range": {"date" : {"gte":"19000101","lte":"19200101","format":"yyyyMMdd"}}},                                
-                                
+                                {"range": {"date": {"gte": fromDate,
+                                                    "lte": toDate, "format": "yyyyMMdd"}}},
                             ],
                             "should": [
                                 {"wildcard": {"judge": {"value": judge}}},
@@ -177,10 +182,10 @@ def query4():
     cat = query[0]['cat']
     act = query[0]['act']
     judge = query[0]['judge']
-    
+
     tuple_list = getRank(searchString[0])
     file_list = [i[0] for i in tuple_list]
-    
+
     res = []
     for i in file_list:
         if i[-1] == '\n':
@@ -193,9 +198,11 @@ def query4():
                                  "bool": {
                                      "must": {"match": {"filename": temp}},
                                      "filter": [
-                                         {"wildcard": {"judge": {"value": judge}}},
+                                         {"range": {"date": {"gte": fromDate,
+                                                             "lte": toDate, "format": "yyyyMMdd"}}},
                                      ],
                                      "should": [
+                                         {"wildcard": {"judge": {"value": judge}}},
                                          {"wildcard": {"case-cat": {"value": cat}}},
                                          {"wildcard": {"act-used": {"value": act}}},
                                          {"wildcard": {"subject": {"value": cat}}},
