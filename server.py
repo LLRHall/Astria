@@ -1,9 +1,15 @@
 from elasticsearch import Elasticsearch
 from flask import Flask, request, jsonify
+import gensim
 
 es = Elasticsearch("http://localhost:9200")
 app = Flask(__name__)
 
+def getRank(input_string):
+
+    model = gensim.models.doc2vec.Doc2Vec.load("Model/NEW_D2V.model")
+    similar_doc = model.docvecs.most_similar(positive=[model.infer_vector(input_string.split())],topn=5)
+    return similar_doc 
 
 @app.route('/')
 def hello_world():
@@ -34,7 +40,7 @@ def query1():
         searchString += q+','
 
     searchString = searchString[:-1]
-    print(judge)
+    print(toDate,fromDate)
     res = es.search(index="cases",
                     body={"query": {
 
@@ -42,8 +48,10 @@ def query1():
                             "must": {"multi_match": {"query": searchString, "fields": ["legal-key", "subject"]}},
                             "filter": [
                                 {"wildcard": {"judge": {"value": judge}}},
+                                {"range": {"date" : {"gte":"01-01-1900","lte":"01-01-2020", "format":"d MMMM yyyy"}}},
                             ],
                             "should": [
+                                
                                 {"wildcard": {"case-cat": {"value": cat}}},
                                 {"wildcard": {"act-used": {"value": act}}},
                                 {"wildcard": {"subject": {"value": cat}}},
@@ -142,9 +150,11 @@ def query3():
                         "bool": {
                             "must": {"match": {"title": searchString[0]}},
                             "filter": [
-                                {"wildcard": {"judge": {"value": judge}}},
+                               {"range": {"date" : {"gte":"19000101","lte":"19200101","format":"yyyyMMdd"}}},                                
+                                
                             ],
                             "should": [
+                                {"wildcard": {"judge": {"value": judge}}},
                                 {"wildcard": {"case-cat": {"value": cat}}},
                                 {"wildcard": {"act-used": {"value": act}}},
                                 {"wildcard": {"subject": {"value": cat}}},
@@ -168,26 +178,37 @@ def query4():
     act = query[0]['act']
     judge = query[0]['judge']
 
-    res = es.search(index="cases",
-                    body={"query": {
+    tuple_list = getRank(searchString)
+    file_list = [i[0] for i in tuple_list]
+    
+    res = []
+    for i in file_list:
+        if i[-1] == '\n':
+            temp = i[:-5]
+        else:
+            temp = i[:-4]
 
-                        "bool": {
-                            "must": {"match": {"title": searchString}},
-                            "filter": [
-                                {"match": {"judge": judge}},
-                                {"match": {"act-used": act}},
-                                {"match": {"case-cat": cat}},
-                                {"range": {"date": {
-                                    "gte": "1 January 1900", "lte": "1 January 2500", "format": "d M y || d M y"}}}
-                            ]
-                        }
+        res.append(es.search(index="cases",
+                             body={"query": {
+                                 "bool": {
+                                     "must": {"match": {"filename": temp}},
+                                     "filter": [
+                                         {"wildcard": {"judge": {"value": judge}}},
+                                     ],
+                                     "should": [
+                                         {"wildcard": {"case-cat": {"value": cat}}},
+                                         {"wildcard": {"act-used": {"value": act}}},
+                                         {"wildcard": {"subject": {"value": cat}}},
+                                     ]
+                                 }
+                             }}))
 
-                    }})
-    print("result is")
-    for cases in res['hits']['hits']:
-        print(cases['_source']['judge'])
+    resultReturn = []
+    for result in res:
+        resultReturn.append(result['hits']['hits'][0])
 
-    return "Yo"
+    print(resultReturn)
+    return jsonify(resultReturn)
 
 
 if __name__ == '__main__':
