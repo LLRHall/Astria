@@ -214,6 +214,22 @@ def query4():
 
     return jsonify(resultReturn)
 
+@app.route('/autocomplete', methods=['GET', 'POST'])
+def autocomplete():
+    query = request.get_json()
+    
+    searchString = query[0]['query']
+    print(searchString)
+    res = es.search(index="words",
+                    body={"query": {
+                        "bool": {
+                            "must": {"match": {"data": searchString[0]}},
+                        }
+
+                    }})
+
+    return jsonify(res['hits']['hits'])
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
