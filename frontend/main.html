@@ -202,18 +202,13 @@
       <!------------------------------------------------------------------------------------------------------------------------------>
     <div id="cards"></div>
     <script>
-        $(document).ready(function(){
-            a = [{'_index': 'cases', '_type': 'case', '_id': '230', '_score': 7.8923335, '_source': {'date': '2  May  2014', 'filename': '2014_S_72', 'title': 'Selvam v State Through Inspector of Police', 'cit-id': '2014 Indlaw SC 325', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'B. S. Chauhan, J.', 'act-used': '', 'result': 'Appeal disposed of\n'}}, {'_index': 'cases', '_type': 'case', '_id': '52985', '_score': 7.8923335, '_source': {'date': '13 March 2014', 'filename': '2014_S_374', 'title': 'Bhagwan Tukaram Dange v State of Maharashtra', 'cit-id': '2014 Indlaw SC 165', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'K. S. Radhakrishnan, J.', 'act-used': '', 'result': 'Appeal disposed of\n'}}, {'_index': 'cases', '_type': 'case', '_id': '7421', '_score': 7.752153, '_source': {'date': '13 March 2014', 'filename': '2014_S_431', 'title': 'Kanhaiya Lal v State of Rajasthan', 'cit-id': '2014 Indlaw SC 164', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'C. Nagappan, J.', 'act-used': '', 'result': 'Appeal allowed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '11826', '_score': 7.752153, '_source': {'date': '3 October 2002', 'filename': '2002_S_216', 'title': 'Varinder Kumar Babla v State Of Himachal Pradesh', 'cit-id': '2002 Indlaw SC 1131', 'case-cat': '', 'subject': 'Criminal', 'legal-key': 'Murder', 'parts': '', 'judge': '', 'act-used': '', 'result': 'Appeal disposed of.\n'}}, {'_index': 'cases', '_type': 'case', '_id': '24652', '_score': 7.752153, '_source': {'date': '15 April 2014', 'filename': '2014_S_307', 'title': 'Prakash v State of Karnataka', 'cit-id': '2014 Indlaw SC 249', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'Madan B. Lokur, J.', 'act-used': '', 'result': 'Appeal allowed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '20599', '_score': 7.545122, '_source': {'date': '22 November 1972', 'filename': '1972_K_21', 'title': 'Karan Singh v State of Uttar Pradesh', 'cit-id': '1972 Indlaw SC 429', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'ALAGIRISWAMI, J.', 'act-used': '', 'result': 'Appeal dismissed.\n'}}, {'_index': 'cases', '_type': 'case', '_id': '24329', '_score': 7.545122, '_source': {'date': '9  May  2014', 'filename': '2014_S_248', 'title': 'Dhan Raj and another v State of Haryana', 'cit-id': '2014 Indlaw SC 356', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'Pinaki Chandra Ghose, J.', 'act-used': '', 'result': 'Appeals allowed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '8213', '_score': 7.4286904, '_source': {'date': '14 January 2010', 'filename': '2010_S_274', 'title': 'Shivanagoud Chanegoud Patil And Others v State Of Karnataka', 'cit-id': '2010 Indlaw SC 45', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder, Conviction', 'parts': '', 'judge': '', 'act-used': '', 'result': 'Appeal disposed of\n'}}, {'_index': 'cases', '_type': 'case', '_id': '10622', '_score': 7.4286904, '_source': {'date': '12 August 2014', 'filename': '2014_K_91', 'title': 'Kuratikar Sudhakar v State of Andhra Pradesh', 'cit-id': '2014 Indlaw SC 517', 'case-cat': '', 'subject': 'Criminal', 'legal-key': 'Murder, Conviction', 'parts': '', 'judge': 'S. A. Bobde, J.', 'act-used': '', 'result': 'Appeal dismissed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '15635', '_score': 7.4286904, '_source': {'date': '23  May  2014', 'filename': '2014_S_443', 'title': 'Paulmeli and another v State of Tamil Nadu Through Inspector of Police', 'cit-id': '2014 Indlaw SC 386', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder, Conviction', 'parts': '', 'judge': 'B. S. Chauhan, J.', 'act-used': '', 'result': 'Appeal dismissed\n'}}];
-                $("button").click(function(){
-                    $.each(a, function(i, jd){
-                    var act = jd.act.join(", ");
-                    var cat = jd.Categories.join(", ");       
-                        $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>Case title</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge <span class="badge badge-primary badge-pill">1</span></th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">14</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">10</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+jd.judgement+'</td><td id="judge">'+jd.judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+jd.Date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">The Big Robbery</h5><p class="card-text">'+jd.summary+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')">Read More</a></div></div>');
-                    });
-                });
+        function RecieveFunc(data){
+            $.each(data, function(i, jd){
+            var act = jd.act.join(", ");
+            var cat = jd.Categories.join(", ");       
+                $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>Case title</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge <span class="badge badge-primary badge-pill">1</span></th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">14</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">10</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+jd.judgement+'</td><td id="judge">'+jd.judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+jd.date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">The Big Robbery</h5><p class="card-text">'+jd.summary+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')">Read More</a></div></div>');
             });
-    </script>
-    <script>
+        };
         $("#send").submit(function(e)
         {
             console.log("awda")
@@ -226,9 +221,27 @@
             var j = $("#jud_in").val();
             var a = $("#act_in").val();
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
-            $.post("http://localhost:5000/query1",contentType:"application/json",dataType:"json", payload,  function(data, status)
-            {
-                alert("Data: " + data + "\nStatus: " + status);
+           
+            jQuery.ajax ({
+                url: "http://localhost:5000/query2",
+                type: "POST",
+                data: JSON.stringify(
+
+            
+            [{
+                "query":q.split(' '),
+                "time":{"from":s_d,"to":e_d},
+                "cat": c,
+                "judge": j,
+                "act": a
+            }]
+            ),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+                    console.log(data);
+                    RecieveFunc(data);
+                }
             });
         });
         function mySum(id) 
