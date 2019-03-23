@@ -216,6 +216,7 @@
     <script>
         $("#send").submit(function(e)
         {
+            console.log("awda")
             e.preventDefault();
             console.log("Yo!");
             var q = $("#query").val();
@@ -225,7 +226,7 @@
             var j = $("#jud_in").val();
             var a = $("#act_in").val();
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
-            $.post("demo_test_post.asp", payload,  function(data, status)
+            $.post("http://localhost:5000/query1",contentType:"application/json",dataType:"json", payload,  function(data, status)
             {
                 alert("Data: " + data + "\nStatus: " + status);
             });

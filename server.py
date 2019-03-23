@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import gensim
 
 es = Elasticsearch("http://localhost:9200")
@@ -15,15 +15,16 @@ def getRank(input_string):
 
 
 @app.route('/')
-def hello_world():
-    return "LLR Open Soft 2019"
+def root():
+    return send_from_directory('frontend','main.html')
 
 
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
 
     query = request.get_json()
-
+    # print(request.body)
+    print(query)
     keywordsList = query[0]['query']
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
@@ -74,6 +75,7 @@ def query2():
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
     cat = query[0]['cat']
+    act = query[0]['act']
     judge = query[0]['judge']
 
     if judge == "":
@@ -96,7 +98,7 @@ def query2():
         for i in temp:
             if i != '\n':
                 file_list.append(i)
-
+    print(file_list)
     res = []
     for i in file_list:
         if i[-1] == '\n':
