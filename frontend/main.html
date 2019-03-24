@@ -294,7 +294,7 @@
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
            
             jQuery.ajax ({
-                url: "http://localhost:5000/query"+radioValue,
+                url: "query"+radioValue,
                 type: "POST",
                 data: JSON.stringify(
 
