@@ -37,7 +37,6 @@
         align-content: right;
         right: auto;
     }
-
     .tooltip
     {
         position: relative;
@@ -46,7 +45,6 @@
         opacity: 1!important;
         z-index: 4;
     }
-
     .tooltip .tooltiptext 
     {
         visibility: hidden;
@@ -59,7 +57,6 @@
         position: absolute;
         z-index: 8;
     }
-
     .tooltip:hover .tooltiptext 
     {
         visibility: visible;
@@ -86,17 +83,14 @@
       background-color: #003366;
       color: white;
     }
-
     .content {
       padding: 16px;
     }
-
     .sticky {
       position: fixed;
       top: 0;
       width: 100%;
     }
-
     .sticky + .content {
       padding-top: 60px; 
     }
@@ -109,7 +103,7 @@
 <body>
     <div id="navbar">
         <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.6em 0.8em">HELP</a>
-        <a style="float:left;margin: 0.2em 0.2em; font-size: 24px"><b>ASTRIA</b></a>
+        <a href="#" style="float:left;margin: 0.2em 0.2em; font-size: 24px"><b>ASTRIA</b></a>
     </div>
     <br>
     <br>
@@ -263,9 +257,10 @@
             var judgement = jd._source.result;
             var summary = jd._source.Summary200;
             var title = jd._source.title;
+            var cit_id = jd._source.cit_id;
             var date = jd._source.date.substring(0,4)+'/'+jd._source.date.substring(4,6)+'/'+jd._source.date.substring(6,8);
-            var filenameUrl = 'files/'+ jd._source.filename + '.pdf';
-            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>'+title+'</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
+            var filenameUrl = 'cases/'+ jd._source.filename + '.txt';
+            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title tooltip" style="color:grey;font-size: 24px"><b>'+title+'</b><span class="tooltiptext" style="font-size: 12px">'+cit_id+'</span></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
             };
         };
         function dateModifier(date){
@@ -297,7 +292,6 @@
                 url: "query"+radioValue,
                 type: "POST",
                 data: JSON.stringify(
-
             
             [{
                 "query":q.split(' '),
@@ -339,10 +333,8 @@
         });
         $(document).ready(function(){
             window.onscroll = function() {myFunction()};
-
         var navbar = document.getElementById("navbar");
         var sticky = navbar.offsetTop;
-
         function myFunction() 
         {
           if (window.pageYOffset >= sticky) 
