@@ -18,6 +18,13 @@ def getRank(input_string):
 def root():
     return send_from_directory('frontend','main.html')
 
+@app.route('/cases/<case_name>')
+def casename(case_name):
+    return send_from_directory('All_FT',case_name+".txt")
+
+@app.route('/acts/<act_name>')
+def actname(act_name):
+    return send_from_directory('All_Acts',act_name+".txt")
 
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
@@ -67,7 +74,29 @@ def query1():
 
                     }})
 
-    return jsonify(res['hits']['hits'])
+    file_list = []
+    for cases in res['hits']['hits']:
+        temp = cases['_source']['filename']+'.txt'
+        file_list.append(temp)
+
+    acts = []
+    for files in file_list:
+        res1 = es.search(index="acts",
+                    body={"query": {
+                       "query_string" : {
+                        "default_field" : "File_Name",
+                        "query" : files+" OR "+files+"\n"
+                    }
+                    }})
+        temp = []
+        for i in res1['hits']['hits']:
+            temp.append(i['_source']['Act_Name'])
+        
+        acts.append(temp)
+    
+    qq = res['hits']['hits']+(acts)
+    print(qq)
+    return jsonify(qq)
 
 
 @app.route('/query2', methods=['GET', 'POST'])
