@@ -173,7 +173,26 @@ def query2():
         except:
             pass
     # print(resultReturn)
-    return jsonify(resultReturn)
+    acts = []
+    for files in file_list:
+        res1 = es.search(index="acts",
+                    body={"query": {
+                       "query_string" : {
+                        "default_field" : "File_Name",
+                        "query" : files+" OR "+files+"\n"
+                    }
+                    }})
+        temp = []
+        for i in res1['hits']['hits']:
+            temp.append(i['_source']['Act_Name'])
+        
+        acts.append(temp)
+    
+    print(acts)
+    qq = resultReturn+(acts)
+    print(qq)
+    return jsonify(qq)
+    # return jsonify(resultReturn)
 
 
 @app.route('/query3', methods=['GET', 'POST'])
@@ -218,7 +237,30 @@ def query3():
 
                     }})
 
-    return jsonify(res['hits']['hits'])
+    file_list = []
+    for cases in res['hits']['hits']:
+        temp = cases['_source']['filename']+'.txt'
+        file_list.append(temp)
+
+    acts = []
+    for files in file_list:
+        res1 = es.search(index="acts",
+                    body={"query": {
+                       "query_string" : {
+                        "default_field" : "File_Name",
+                        "query" : files+" OR "+files+"\n"
+                    }
+                    }})
+        temp = []
+        for i in res1['hits']['hits']:
+            temp.append(i['_source']['Act_Name'])
+        
+        acts.append(temp)
+    
+    qq = res['hits']['hits']+(acts)
+    print(qq)
+    return jsonify(qq)
+    # return jsonify(res['hits']['hits'])
 
 
 @app.route('/query4', methods=['GET', 'POST'])
@@ -267,7 +309,25 @@ def query4():
         except:
             pass
 
-    return jsonify(resultReturn)
+    acts = []
+    for files in file_list:
+        res1 = es.search(index="acts",
+                    body={"query": {
+                       "query_string" : {
+                        "default_field" : "File_Name",
+                        "query" : files+" OR "+files+"\n"
+                    }
+                    }})
+        temp = []
+        for i in res1['hits']['hits']:
+            temp.append(i['_source']['Act_Name'])
+        
+        acts.append(temp)
+    
+    qq = resultReturn+(acts)
+    print(qq)
+    return jsonify(qq)
+    # return jsonify(resultReturn)
 
 
 @app.route('/autocomplete', methods=['GET', 'POST'])

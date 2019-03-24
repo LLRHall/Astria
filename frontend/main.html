@@ -77,8 +77,9 @@
         <div class="card w-75 center">
             <div class="container">
                 <form id = "send" action="" method="">
+                  
                     <div class="row">
-                        <div  data-step="1" data-intro="Ok, wasn't that fun?" class="col-md-12">
+                        <div  data-step="1" data-intro="Enter your queries here !" class="col-md-12">
                             <br/>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="query" placeholder="Query"/>
@@ -87,7 +88,7 @@
                     </div>
                  
                     <div class="row">
-                        <div data-step="2" data-intro="Ok, wasn't that fun?" class="col-md-3 ">
+                        <div data-step="2" data-intro="Filter your results by date" class="col-md-3 ">
                             <div class="form-group">
                               
                                 <input id="startDate" width="200" placeholder="Start Date"/>
@@ -103,25 +104,25 @@
                                 </script>
                             </div>
                         </div>
-                        <div data-step="4" data-intro="Ok, wasn't that fun?" class="col-md-3">
+                        <div data-step="3" data-intro="Search by Category" class="col-md-3">
                             <div class="form-group">
                               
                                 <input type="text" class="form-control" id="cat_in" placeholder="Category"/>
                             </div>
                         </div>
-                        <div data-step="5" data-intro="Ok, wasn't that fun?" class="col-md-3">
+                        <div data-step="4" data-intro="Search by specific Acts" class="col-md-3">
                             <div class="form-group">                                  
                                 <input type="text" class="form-control" id="act_in" placeholder="Acts"/>
                             </div>
                         </div>
-                        <div data-step="6" data-intro="Ok, wasn't that fun?" class="col-md-3">
+                        <div data-step="5" data-intro="Search by a specific Judge" class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="jud_in" placeholder="Judge"/>
                                 </div>
                         </div>
                         </div>
                         <div class="row">
-                                <div data-step="3" data-intro="Ok, wasn't that fun?" class="col-md-3">
+                                <div data-step="2"  class="col-md-3">
                                         <div class="form-group">
                                             <input id="endDate" width="200" placeholder="End Date"/>
                                             <script>
@@ -203,6 +204,7 @@
     <div id="cards"></div>
     <script>
         function RecieveFunc(data){
+            $("#cards").empty()
             for(i=0;i<data.length/2;i++){
             var jd = data[i];
             var act = data[i+data.length/2].join(', ');
@@ -240,7 +242,7 @@
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
            
             jQuery.ajax ({
-                url: "http://localhost:5000/query1",
+                url: "http://localhost:5000/query2",
                 type: "POST",
                 data: JSON.stringify(
 
