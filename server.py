@@ -35,7 +35,7 @@ def query1():
 
     query = request.get_json()
     # print(request.body)
-    print(query)
+    # print(query)
     keywordsList = query[0]['query']
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
@@ -99,7 +99,7 @@ def query1():
         acts.append(temp)
     
     qq = res['hits']['hits']+(acts)
-    print(qq)
+    # print(qq)
     return jsonify(qq)
 
 
@@ -107,7 +107,7 @@ def query1():
 def query2():
 
     query = request.get_json()
-    print(query)
+    # print(query)
     actquery = query[0]['query']
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
@@ -188,9 +188,9 @@ def query2():
         
         acts.append(temp)
     
-    print(acts)
+    # print(acts)
     qq = resultReturn+(acts)
-    print(qq)
+    # print(qq)
     return jsonify(qq)
     # return jsonify(resultReturn)
 
@@ -258,7 +258,7 @@ def query3():
         acts.append(temp)
     
     qq = res['hits']['hits']+(acts)
-    print(qq)
+    # print(qq)
     return jsonify(qq)
     # return jsonify(res['hits']['hits'])
 
@@ -325,7 +325,7 @@ def query4():
         acts.append(temp)
     
     qq = resultReturn+(acts)
-    print(qq)
+    # print(qq)
     return jsonify(qq)
     # return jsonify(resultReturn)
 
@@ -335,7 +335,7 @@ def autocomplete():
     query = request.get_json()
 
     searchString = query[0]['query']
-    print(searchString)
+    # print(searchString)
     res = es.search(index="words",
                     body={"query": {
                         "bool": {
