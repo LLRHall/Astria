@@ -32,6 +32,10 @@ def query1():
     act = query[0]['act']
     judge = query[0]['judge']
 
+    if fromDate == "":
+        fromDate="18000101"
+    if toDate == "":
+        toDate="20200101"
     if judge == "":
         judge = "*"
     if act == "":
@@ -48,15 +52,15 @@ def query1():
                     body={"query": {
 
                         "bool": {
-                            "must": {"multi_match": {"query": searchString, "fields": ["legal-key", "subject"]}},
+                            "must": {"multi_match": {"query": searchString, "fields": ["legal_key", "subject"]}},
                             "filter": [
                                 {"range": {"date": {"gte": fromDate,
                                                     "lte": toDate, "format": "yyyyMMdd"}}},
                             ],
                             "should": [
                                 {"wildcard": {"judge": {"value": judge}}},
-                                {"wildcard": {"case-cat": {"value": cat}}},
-                                {"wildcard": {"act-used": {"value": act}}},
+                                {"wildcard": {"case_cat": {"value": cat}}},
+                                {"wildcard": {"act_used": {"value": act}}},
                                 {"wildcard": {"subject": {"value": cat}}},
                             ]
                         }
@@ -70,7 +74,7 @@ def query1():
 def query2():
 
     query = request.get_json()
-
+    print(query)
     actquery = query[0]['query']
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
@@ -78,6 +82,10 @@ def query2():
     act = query[0]['act']
     judge = query[0]['judge']
 
+    if fromDate == "":
+        fromDate="18000101"
+    if toDate == "":
+        toDate="20200101"
     if judge == "":
         judge = "*"
     if act == "":
@@ -98,7 +106,7 @@ def query2():
         for i in temp:
             if i != '\n':
                 file_list.append(i)
-    print(file_list)
+    
     res = []
     for i in file_list:
         if i[-1] == '\n':
@@ -116,17 +124,22 @@ def query2():
                                      ],
                                      "should": [
                                          {"wildcard": {"judge": {"value": judge}}},
-                                         {"wildcard": {"case-cat": {"value": cat}}},
-                                         {"wildcard": {"act-used": {"value": act}}},
+                                         {"wildcard": {"case_cat": {"value": cat}}},
+                                         {"wildcard": {"act_used": {"value": act}}},
                                          {"wildcard": {"subject": {"value": cat}}},
                                      ]
                                  }
                              }}))
 
+    
     resultReturn = []
     for result in res:
-        resultReturn.append(result['hits']['hits'][0])
-
+        # print(result['hits']['hits'][0])
+        try:
+            resultReturn.append(result['hits']['hits'][0])
+        except:
+            pass
+    # print(resultReturn)
     return jsonify(resultReturn)
 
 
@@ -142,6 +155,10 @@ def query3():
     act = query[0]['act']
     judge = query[0]['judge']
 
+    if fromDate == "":
+        fromDate="18000101"
+    if toDate == "":
+        toDate="20200101"
     if judge == "":
         judge = "*"
     if act == "":
@@ -160,8 +177,8 @@ def query3():
                             ],
                             "should": [
                                 {"wildcard": {"judge": {"value": judge}}},
-                                {"wildcard": {"case-cat": {"value": cat}}},
-                                {"wildcard": {"act-used": {"value": act}}},
+                                {"wildcard": {"case_cat": {"value": cat}}},
+                                {"wildcard": {"act_used": {"value": act}}},
                                 {"wildcard": {"subject": {"value": cat}}},
                             ]
                         }
@@ -203,8 +220,8 @@ def query4():
                                      ],
                                      "should": [
                                          {"wildcard": {"judge": {"value": judge}}},
-                                         {"wildcard": {"case-cat": {"value": cat}}},
-                                         {"wildcard": {"act-used": {"value": act}}},
+                                         {"wildcard": {"case_cat": {"value": cat}}},
+                                         {"wildcard": {"act_used": {"value": act}}},
                                          {"wildcard": {"subject": {"value": cat}}},
                                      ]
                                  }
@@ -212,7 +229,10 @@ def query4():
 
     resultReturn = []
     for result in res:
-        resultReturn.append(result['hits']['hits'][0])
+        try:
+            resultReturn.append(result['hits']['hits'][0])
+        except:
+            pass
 
     return jsonify(resultReturn)
 
@@ -231,7 +251,7 @@ def autocomplete():
 
                     }})
 
-    return jsonify(res['hits']['hits'])
+    return jsonify(res['hits']['hits'][0]['_source']['data'])
 
 
 if __name__ == '__main__':
