@@ -26,6 +26,10 @@ def casename(case_name):
 def actname(act_name):
     return send_from_directory('All_Acts',act_name+".txt")
 
+@app.route('/replacer.js')
+def replacer():
+    return send_from_directory("static","replacer.js")
+
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
 

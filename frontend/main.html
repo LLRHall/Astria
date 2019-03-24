@@ -217,7 +217,14 @@
         };
         function dateModifier(date){
             var temp = date.split('/');
-            return temp[2].concat(temp[1], temp[0]);
+            console.log("wd")
+            if(temp.length===3){
+                return temp[2].concat(temp[1], temp[0]);
+            }
+            else{
+                return '';
+            }
+            
         };
         $("#send").submit(function(e)
         {
@@ -225,16 +232,15 @@
             e.preventDefault();
             console.log("Yo!");
             var q = $("#query").val();
-            var getDate = $("#startDate").val();
-            var s_d = dateModifier(("#startDate").val());
-            var e_d = dateModifier(("#endDate").val());
+            var s_d = dateModifier($("#startDate").val());
+            var e_d = dateModifier($("#endDate").val());
             var c = $("#cat_in").val();
             var j = $("#jud_in").val();
             var a = $("#act_in").val();
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
            
             jQuery.ajax ({
-                url: "http://localhost:5000/query2",
+                url: "http://localhost:5000/query1",
                 type: "POST",
                 data: JSON.stringify(
 
