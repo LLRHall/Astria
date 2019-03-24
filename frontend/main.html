@@ -256,14 +256,16 @@
             for(i=0;i<data.length/2;i++){
             var jd = data[i];
             var act = data[i+data.length/2].join(', ');
+            var act_num = data[i+data.length/2].length;
             var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
+            var cat_num = cat.split(', ').length;
             var judge = jd._source.judge;
             var judgement = jd._source.result;
             var summary = jd._source.Summary200;
             var title = jd._source.title;
             var date = jd._source.date.substring(0,4)+'/'+jd._source.date.substring(4,6)+'/'+jd._source.date.substring(6,8);
             var filenameUrl = 'files/'+ jd._source.filename + '.pdf';
-            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>'+title+'</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">14</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">10</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
+            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>'+title+'</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
             };
         };
         function dateModifier(date){
@@ -292,7 +294,7 @@
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
            
             jQuery.ajax ({
-                url: "query"+radioValue,
+                url: "http://localhost:5000/query"+radioValue,
                 type: "POST",
                 data: JSON.stringify(
 
