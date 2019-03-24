@@ -7,18 +7,18 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css" rel="stylesheet" type="text/css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" type="text/javascript"></script>
-<script src="replacer.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" type="text/javascript"></script>
+    <script src="replacer.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <style>
     body 
@@ -42,9 +42,9 @@
     {
         position: relative;
         display: inline-block;
-        color: blue;
-        border-bottom: 1px dotted black;
+        color: red;
         opacity: 1!important;
+        z-index: 4;
     }
 
     .tooltip .tooltiptext 
@@ -57,12 +57,48 @@
         border-radius: 6px;
         padding: 5px 0;
         position: absolute;
-        z-index: 1;
+        z-index: 8;
     }
 
     .tooltip:hover .tooltiptext 
     {
         visibility: visible;
+    }
+    #navbar 
+    {
+            z-index:1200;
+            overflow: hidden;
+            background-color: #333;
+    }
+    
+    #navbar a {
+          float: right;
+          display: block;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 8px 16px;
+          text-decoration: none;
+          font-size: 17px;
+          border-radius: 8px;
+    }
+    
+    #navbar a.active {
+      background-color: #003366;
+      color: white;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+
+    .sticky + .content {
+      padding-top: 60px; 
     }
 </style>
 <!---------------------------------------------------------------------------------------------------------------------->
@@ -71,18 +107,37 @@
 </head>
 
 <body>
+    <div id="navbar">
+        <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.6em 0.8em">HELP</a>
+        <a style="float:left;margin: 0.2em 0.2em; font-size: 24px"><b>ASTRIA</b></a>
+    </div>
     <br>
-    <h1 align="center">ASTRIA</h1>
-    <br/>
+    <br>
+    <br>
         <div class="card w-75 center">
             <div class="container">
                 <form id = "send" action="" method="">
+
+                        <div data-step="6" data-intro="Select query type" class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                  <input type="radio" name="options" value="1" autocomplete="off" checked> Keywords
+                                </label>
+                                <label class="btn btn-secondary">
+                                  <input type="radio" name="options"  value="2" autocomplete="off"> Acts
+                                </label>
+                                <label class="btn btn-secondary">
+                                  <input type="radio" name="options" value="3" autocomplete="off"> Cases
+                                </label>
+                                <label class="btn btn-secondary">
+                                        <input type="radio" name="options" value="4" autocomplete="off"> <span class='tooltip' style="color:white!important"> Query <span class='tooltiptext'> Tell us about your situation </span></span>
+                                </label>
+                        </div>
                   
                     <div class="row">
                         <div  data-step="1" data-intro="Enter your queries here !" class="col-md-12">
                             <br/>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="query" placeholder="Query"/>
+                                    <input type="text" class="form-control" id="query" placeholder="Search here...."/>
                                 </div>
                         </div>
                     </div>
@@ -103,44 +158,37 @@
                                         }});
                                 </script>
                             </div>
+                            <div class="form-group">
+                                <input id="endDate" width="200" placeholder="End Date"/>
+                                <script>
+                                    var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                                    $('#endDate').datepicker({
+                                        uiLibrary: 'bootstrap4',
+                                        iconsLibrary: 'fontawesome',
+                                        minDate: function () {
+                                            return $('#startDate').val();
+                                        }
+                                    });
+                                </script>
+                            </div>
                         </div>
-                        <div data-step="3" data-intro="Search by Category" class="col-md-3">
+                        <div data-step="3" data-intro="Filter by Category" class="col-md-3">
                             <div class="form-group">
                               
                                 <input type="text" class="form-control" id="cat_in" placeholder="Category"/>
                             </div>
                         </div>
-                        <div data-step="4" data-intro="Search by specific Acts" class="col-md-3">
+                        <div data-step="4" data-intro="Filter by specific Acts" class="col-md-3">
                             <div class="form-group">                                  
                                 <input type="text" class="form-control" id="act_in" placeholder="Acts"/>
                             </div>
                         </div>
-                        <div data-step="5" data-intro="Search by a specific Judge" class="col-md-3">
+                        <div data-step="5" data-intro="Filter by a specific Judge" class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="jud_in" placeholder="Judge"/>
                                 </div>
                         </div>
-                        </div>
-                        <div class="row">
-                                <div data-step="2"  class="col-md-3">
-                                        <div class="form-group">
-                                            <input id="endDate" width="200" placeholder="End Date"/>
-                                            <script>
-                                                var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-                                                $('#endDate').datepicker({
-                                                    uiLibrary: 'bootstrap4',
-                                                    iconsLibrary: 'fontawesome',
-                                                    minDate: function () {
-                                                        return $('#startDate').val();
-                                                    }
-                                                });
-                                            </script>
-                                </div>
-                                </div>
-                                <div class="col-md-3"> </div>
-                                <div class="col-md-3"> </div>
-                                <div class="col-md-3"> </div>
-                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-3"> </div>
                         <div class="col-md-3"> </div>
@@ -204,7 +252,7 @@
     <div id="cards"></div>
     <script>
         function RecieveFunc(data){
-            $("#cards").empty()
+            $("#cards").empty();
             for(i=0;i<data.length/2;i++){
             var jd = data[i];
             var act = data[i+data.length/2].join(', ');
@@ -214,7 +262,8 @@
             var summary = jd._source.Summary200;
             var title = jd._source.title;
             var date = jd._source.date.substring(0,4)+'/'+jd._source.date.substring(4,6)+'/'+jd._source.date.substring(6,8);
-            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>Case title</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge <span class="badge badge-primary badge-pill">1</span></th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">14</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">10</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')">Read More</a></div></div>');
+            var filenameUrl = 'files/'+ jd._source.filename + '.pdf';
+            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>'+title+'</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">14</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">10</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
             };
         };
         function dateModifier(date){
@@ -233,6 +282,7 @@
             console.log("awda")
             e.preventDefault();
             console.log("Yo!");
+            var radioValue = $("input[name='options']:checked").val();
             var q = $("#query").val();
             var s_d = dateModifier($("#startDate").val());
             var e_d = dateModifier($("#endDate").val());
@@ -242,7 +292,7 @@
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
            
             jQuery.ajax ({
-                url: "query2",
+                url: "http://localhost:5000/query"+radioValue,
                 type: "POST",
                 data: JSON.stringify(
 
@@ -284,6 +334,23 @@
                 introJs().start();
                 localStorage.setItem("key", "keyValue");
             };
+        });
+        $(document).ready(function(){
+            window.onscroll = function() {myFunction()};
+
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+
+        function myFunction() 
+        {
+          if (window.pageYOffset >= sticky) 
+          {
+            navbar.classList.add("sticky")
+          } else 
+          {
+            navbar.classList.remove("sticky");
+          }
+        }
         });
     </script>
     <br>
