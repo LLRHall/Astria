@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from flask import Flask, request, jsonify, send_from_directory, url_for,redirect
+from flask import Flask, request, jsonify, send_from_directory, url_for, redirect
 import gensim
 
 es = Elasticsearch("http://localhost:9200")
@@ -16,19 +16,23 @@ def getRank(input_string):
 
 @app.route('/')
 def root():
-    return send_from_directory('frontend','main.html')
+    return send_from_directory('frontend', 'main.html')
+
 
 @app.route('/cases/<case_name>')
 def casename(case_name):
-    return redirect(url_for('static',filename='All_FT/'+case_name))
+    return redirect(url_for('static', filename='All_FT/'+case_name))
+
 
 @app.route('/acts/<act_name>')
 def actname(act_name):
-    return redirect(url_for('static',filename='All_Acts/'+act_name))
+    return redirect(url_for('static', filename='All_Acts/'+act_name))
+
 
 @app.route('/replacer.js')
 def replacer():
-    return send_from_directory("static","replacer.js")
+    return send_from_directory("static", "replacer.js")
+
 
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
@@ -44,9 +48,9 @@ def query1():
     judge = query[0]['judge']
 
     if fromDate == "":
-        fromDate="18000101"
+        fromDate = "18000101"
     if toDate == "":
-        toDate="20200101"
+        toDate = "20200101"
     if judge == "":
         judge = "*"
     if act == "":
@@ -86,21 +90,20 @@ def query1():
     acts = []
     for files in file_list:
         res1 = es.search(index="acts",
-                    body={"query": {
-                       "query_string" : {
-                        "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n",
-                        "default_operator": "AND"
-                    }
-                    }})
+                         body={"query": {
+                             "query_string": {
+                                 "default_field": "File_Name",
+                                 "query": files+" OR "+files+"\n",
+                                 "default_operator": "AND"
+                             }
+                         }})
         temp = []
         for i in res1['hits']['hits']:
             temp.append(i['_source']['Act_Name'])
-        
+
         acts.append(temp)
-    
+
     qq = res['hits']['hits']+(acts)
-    # print(qq)
     return jsonify(qq)
 
 
@@ -108,7 +111,6 @@ def query1():
 def query2():
 
     query = request.get_json()
-    # print(query)
     actquery = query[0]['query']
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
@@ -117,9 +119,9 @@ def query2():
     judge = query[0]['judge']
 
     if fromDate == "":
-        fromDate="18000101"
+        fromDate = "18000101"
     if toDate == "":
-        toDate="20200101"
+        toDate = "20200101"
     if judge == "":
         judge = "*"
     if act == "":
@@ -140,7 +142,7 @@ def query2():
         for i in temp:
             if i != '\n':
                 file_list.append(i)
-    
+
     res = []
     for i in file_list:
         if i[-1] == '\n':
@@ -157,44 +159,39 @@ def query2():
                                                              "lte": toDate, "format": "yyyyMMdd"}}},
                                      ],
                                      "should": [
-                                        {"match": {"judge": judge}},
-                                        {"match": {"case_cat": cat}},
-                                        {"match": {"act_used": act}},
-                                        {"match": {"subject": cat}},
+                                         {"match": {"judge": judge}},
+                                         {"match": {"case_cat": cat}},
+                                         {"match": {"act_used": act}},
+                                         {"match": {"subject": cat}},
                                      ]
                                  }
                              }}))
 
-    
     resultReturn = []
     for result in res:
-        # print(result['hits']['hits'][0])
         try:
             resultReturn.append(result['hits']['hits'][0])
         except:
             pass
-    # print(resultReturn)
+
     acts = []
     for files in file_list:
         res1 = es.search(index="acts",
-                    body={"query": {
-                       "query_string" : {
-                        "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n",
-                        "default_operator": "AND"
-                    }
-                    }})
+                         body={"query": {
+                             "query_string": {
+                                 "default_field": "File_Name",
+                                 "query": files+" OR "+files+"\n",
+                                 "default_operator": "AND"
+                             }
+                         }})
         temp = []
         for i in res1['hits']['hits']:
             temp.append(i['_source']['Act_Name'])
-        
+
         acts.append(temp)
-    
-    # print(acts)
+
     qq = resultReturn+(acts)
-    # print(qq)
     return jsonify(qq)
-    # return jsonify(resultReturn)
 
 
 @app.route('/query3', methods=['GET', 'POST'])
@@ -210,9 +207,9 @@ def query3():
     judge = query[0]['judge']
 
     if fromDate == "":
-        fromDate="18000101"
+        fromDate = "18000101"
     if toDate == "":
-        toDate="20200101"
+        toDate = "20200101"
     if judge == "":
         judge = "*"
     if act == "":
@@ -228,9 +225,9 @@ def query3():
                             "filter": [
                                 {"range": {"date": {"gte": fromDate,
                                                     "lte": toDate, "format": "yyyyMMdd"}}},
-                                                                                     
+
                             ],
-                            
+
                             "should": [
                                 {"match": {"judge": judge}},
                                 {"match": {"case_cat": cat}},
@@ -249,23 +246,21 @@ def query3():
     acts = []
     for files in file_list:
         res1 = es.search(index="acts",
-                    body={"query": {
-                       "query_string" : {
-                        "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n",
-                        "default_operator": "AND"
-                    }
-                    }})
+                         body={"query": {
+                             "query_string": {
+                                 "default_field": "File_Name",
+                                 "query": files+" OR "+files+"\n",
+                                 "default_operator": "AND"
+                             }
+                         }})
         temp = []
         for i in res1['hits']['hits']:
             temp.append(i['_source']['Act_Name'])
-        
+
         acts.append(temp)
-    
+
     qq = res['hits']['hits']+(acts)
-    # print(qq)
     return jsonify(qq)
-    # return jsonify(res['hits']['hits'])
 
 
 @app.route('/query4', methods=['GET', 'POST'])
@@ -281,9 +276,9 @@ def query4():
     judge = query[0]['judge']
 
     if fromDate == "":
-        fromDate="18000101"
+        fromDate = "18000101"
     if toDate == "":
-        toDate="20200101"
+        toDate = "20200101"
     if judge == "":
         judge = "*"
     if act == "":
@@ -300,7 +295,6 @@ def query4():
             temp = i[:-5]
         else:
             temp = i[:-4]
-        # print(temp)
         res.append(es.search(index="cases",
                              body={"query": {
                                  "bool": {
@@ -308,13 +302,13 @@ def query4():
                                      "filter": [
                                          {"range": {"date": {"gte": fromDate,
                                                              "lte": toDate, "format": "yyyyMMdd"}}},
-                                        
+
                                      ],
                                      "should": [
-                                            {"match": {"judge": judge}},
-                                            {"match": {"case_cat": cat}},
-                                            {"match": {"act_used": act}},
-                                            {"match": {"subject": cat}},
+                                         {"match": {"judge": judge}},
+                                         {"match": {"case_cat": cat}},
+                                         {"match": {"act_used": act}},
+                                         {"match": {"subject": cat}},
                                      ],
                                  }
                              }}))
@@ -329,19 +323,19 @@ def query4():
     acts = []
     for files in file_list:
         res1 = es.search(index="acts",
-                    body={"query": {
-                       "query_string" : {
-                        "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n",
-                        "default_operator": "AND"
-                    }
-                    }})
+                         body={"query": {
+                             "query_string": {
+                                 "default_field": "File_Name",
+                                 "query": files+" OR "+files+"\n",
+                                 "default_operator": "AND"
+                             }
+                         }})
         temp = []
         for i in res1['hits']['hits']:
             temp.append(i['_source']['Act_Name'])
-        
+
         acts.append(temp)
-    
+
     qq = resultReturn+(acts)
     return jsonify(qq)
 
@@ -351,7 +345,6 @@ def autocomplete():
     query = request.get_json()
 
     searchString = query[0]['query']
-    # print(searchString)
     res = es.search(index="words",
                     body={"query": {
                         "bool": {
