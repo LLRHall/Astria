@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, url_for,redirect
 import gensim
 
 es = Elasticsearch("http://localhost:9200")
@@ -20,11 +20,11 @@ def root():
 
 @app.route('/cases/<case_name>')
 def casename(case_name):
-    return send_from_directory('All_FT',case_name+".txt")
+    return redirect(url_for('static',filename='All_FT/'+case_name))
 
 @app.route('/acts/<act_name>')
 def actname(act_name):
-    return send_from_directory('All_Acts',act_name+".txt")
+    return redirect(url_for('static',filename='All_Acts/'+act_name))
 
 @app.route('/replacer.js')
 def replacer():
