@@ -89,7 +89,8 @@ def query1():
                     body={"query": {
                        "query_string" : {
                         "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n"
+                        "query" : files+" OR "+files+"\n",
+                        "default_operator": "AND"
                     }
                     }})
         temp = []
@@ -179,7 +180,8 @@ def query2():
                     body={"query": {
                        "query_string" : {
                         "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n"
+                        "query" : files+" OR "+files+"\n",
+                        "default_operator": "AND"
                     }
                     }})
         temp = []
@@ -217,7 +219,7 @@ def query3():
         act = "*"
     if cat == "":
         cat = "*"
-
+    print(judge)
     res = es.search(index="cases",
                     body={"query": {
 
@@ -225,10 +227,10 @@ def query3():
                             "must": {"match": {"title": searchString[0]}},
                             "filter": [
                                 {"range": {"date": {"gte": fromDate,
-                                                    "lte": toDate, "format": "yyyyMMdd"}}},
+                                                    "lte": toDate, "format": "yyyyMMdd"}}},                                                    
                             ],
                             "should": [
-                                {"wildcard": {"judge": {"value": judge}}},
+                                {"wildcard": {"judge": {"value": judge, "boost" : 2.0}}},
                                 {"wildcard": {"case_cat": {"value": cat}}},
                                 {"wildcard": {"act_used": {"value": act}}},
                                 {"wildcard": {"subject": {"value": cat}}},
@@ -248,7 +250,8 @@ def query3():
                     body={"query": {
                        "query_string" : {
                         "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n"
+                        "query" : files+" OR "+files+"\n",
+                        "default_operator": "AND"
                     }
                     }})
         temp = []
@@ -303,13 +306,14 @@ def query4():
                                      "filter": [
                                          {"range": {"date": {"gte": fromDate,
                                                              "lte": toDate, "format": "yyyyMMdd"}}},
+                                        
                                      ],
                                      "should": [
                                          {"wildcard": {"judge": {"value": judge}}},
                                          {"wildcard": {"case_cat": {"value": cat}}},
                                          {"wildcard": {"act_used": {"value": act}}},
                                          {"wildcard": {"subject": {"value": cat}}},
-                                     ]
+                                     ],
                                  }
                              }}))
 
@@ -326,7 +330,8 @@ def query4():
                     body={"query": {
                        "query_string" : {
                         "default_field" : "File_Name",
-                        "query" : files+" OR "+files+"\n"
+                        "query" : files+" OR "+files+"\n",
+                        "default_operator": "AND"
                     }
                     }})
         temp = []
