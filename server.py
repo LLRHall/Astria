@@ -69,10 +69,10 @@ def query1():
                                                     "lte": toDate, "format": "yyyyMMdd"}}},
                             ],
                             "should": [
-                                {"wildcard": {"judge": {"value": judge}}},
-                                {"wildcard": {"case_cat": {"value": cat}}},
-                                {"wildcard": {"act_used": {"value": act}}},
-                                {"wildcard": {"subject": {"value": cat}}},
+                                {"match": {"judge": judge}},
+                                {"match": {"case_cat": cat}},
+                                {"match": {"act_used": act}},
+                                {"match": {"subject": cat}},
                             ]
                         }
 
@@ -157,10 +157,10 @@ def query2():
                                                              "lte": toDate, "format": "yyyyMMdd"}}},
                                      ],
                                      "should": [
-                                         {"wildcard": {"judge": {"value": judge}}},
-                                         {"wildcard": {"case_cat": {"value": cat}}},
-                                         {"wildcard": {"act_used": {"value": act}}},
-                                         {"wildcard": {"subject": {"value": cat}}},
+                                        {"match": {"judge": judge}},
+                                        {"match": {"case_cat": cat}},
+                                        {"match": {"act_used": act}},
+                                        {"match": {"subject": cat}},
                                      ]
                                  }
                              }}))
@@ -227,13 +227,15 @@ def query3():
                             "must": {"match": {"title": searchString[0]}},
                             "filter": [
                                 {"range": {"date": {"gte": fromDate,
-                                                    "lte": toDate, "format": "yyyyMMdd"}}},                                                    
+                                                    "lte": toDate, "format": "yyyyMMdd"}}},
+                                                                                     
                             ],
+                            
                             "should": [
-                                {"wildcard": {"judge": {"value": judge, "boost" : 2.0}}},
-                                {"wildcard": {"case_cat": {"value": cat}}},
-                                {"wildcard": {"act_used": {"value": act}}},
-                                {"wildcard": {"subject": {"value": cat}}},
+                                {"match": {"judge": judge}},
+                                {"match": {"case_cat": cat}},
+                                {"match": {"act_used": act}},
+                                {"match": {"subject": cat}},
                             ]
                         }
 
@@ -309,10 +311,10 @@ def query4():
                                         
                                      ],
                                      "should": [
-                                         {"wildcard": {"judge": {"value": judge}}},
-                                         {"wildcard": {"case_cat": {"value": cat}}},
-                                         {"wildcard": {"act_used": {"value": act}}},
-                                         {"wildcard": {"subject": {"value": cat}}},
+                                            {"match": {"judge": judge}},
+                                            {"match": {"case_cat": cat}},
+                                            {"match": {"act_used": act}},
+                                            {"match": {"subject": cat}},
                                      ],
                                  }
                              }}))
