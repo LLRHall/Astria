@@ -275,6 +275,17 @@ def query4():
     act = query[0]['act']
     judge = query[0]['judge']
 
+    if fromDate == "":
+        fromDate="18000101"
+    if toDate == "":
+        toDate="20200101"
+    if judge == "":
+        judge = "*"
+    if act == "":
+        act = "*"
+    if cat == "":
+        cat = "*"
+
     tuple_list = getRank(searchString[0])
     file_list = [i[0] for i in tuple_list]
 
@@ -284,7 +295,7 @@ def query4():
             temp = i[:-5]
         else:
             temp = i[:-4]
-        print(temp)
+        # print(temp)
         res.append(es.search(index="cases",
                              body={"query": {
                                  "bool": {
@@ -325,9 +336,7 @@ def query4():
         acts.append(temp)
     
     qq = resultReturn+(acts)
-    # print(qq)
     return jsonify(qq)
-    # return jsonify(resultReturn)
 
 
 @app.route('/autocomplete', methods=['GET', 'POST'])
