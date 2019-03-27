@@ -33,6 +33,10 @@ def actname(act_name):
 def replacer():
     return send_from_directory("static", "replacer.js")
 
+@app.route('/wallpaper1.png')
+def wallpaper():
+    return send_from_directory("static", "wallpaper1.png")
+
 
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
