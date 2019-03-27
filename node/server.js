@@ -1,8 +1,10 @@
 var express = require('express');
 var Fuse = require('fuse.js');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 var app = express();
 
+app.use(cors())
 var actsObject = require('../acts.json')
 var titlesObject = require('../title.json')
 var keywordsObject = require('../keyword.json')
@@ -15,6 +17,7 @@ var options = {
   distance: 30,
   maxPatternLength: 32,
   minMatchCharLength: 1
+
 };
 var acts = new Fuse(actsObject,options);
 var titles = new Fuse(titlesObject,options);
@@ -31,7 +34,7 @@ app.get('/', function (req,res) {
 
 
 app.post('/acts',function(req,res){
-	suggestions = acts.search(req.body.query)
+	suggestions = acts.search(req.body.query,{limit:5})
 	// console.log("wad")
 	console.log(req.body.query)
 	// res.send("Hello")
@@ -39,7 +42,7 @@ app.post('/acts',function(req,res){
 })
 
 app.post('/titles',function(req,res){
-	suggestions = titles.search(req.body.query)
+	suggestions = titles.search(req.body.query,{limit:5})
 	// console.log(keywords)
 	console.log(req.body.query)
 	// res.send("Hello")
@@ -47,7 +50,7 @@ app.post('/titles',function(req,res){
 })
 
 app.post('/keywords',function(req,res){
-	suggestions = keywords.search(req.body.query)
+	suggestions = keywords.search(req.body.query,{limit:5})
 	// console.log(keywords)
 	console.log(req.body.query)
 	// res.send("Hello")
