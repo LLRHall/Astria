@@ -1,8 +1,10 @@
 var express = require('express');
 var Fuse = require('fuse.js');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 var app = express();
 
+app.use(cors())
 var actsObject = require('../acts.json')
 var titlesObject = require('../title.json')
 var keywordsObject = require('../keyword.json')
@@ -15,6 +17,7 @@ var options = {
   distance: 30,
   maxPatternLength: 32,
   minMatchCharLength: 1
+
 };
 var acts = new Fuse(actsObject,options);
 var titles = new Fuse(titlesObject,options);
