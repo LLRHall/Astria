@@ -34,7 +34,7 @@ app.get('/', function (req,res) {
 
 
 app.post('/acts',function(req,res){
-	suggestions = acts.search(req.body.query)
+	suggestions = acts.search(req.body.query,{limit:5})
 	// console.log("wad")
 	console.log(req.body.query)
 	// res.send("Hello")
@@ -42,7 +42,7 @@ app.post('/acts',function(req,res){
 })
 
 app.post('/titles',function(req,res){
-	suggestions = titles.search(req.body.query)
+	suggestions = titles.search(req.body.query,{limit:5})
 	// console.log(keywords)
 	console.log(req.body.query)
 	// res.send("Hello")
@@ -50,7 +50,7 @@ app.post('/titles',function(req,res){
 })
 
 app.post('/keywords',function(req,res){
-	suggestions = keywords.search(req.body.query)
+	suggestions = keywords.search(req.body.query,{limit:5})
 	// console.log(keywords)
 	console.log(req.body.query)
 	// res.send("Hello")
