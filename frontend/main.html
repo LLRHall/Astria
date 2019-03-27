@@ -95,23 +95,6 @@
     .sticky + .content {
       padding-top: 60px; 
     }
-
-    .dropdown-content {
-    display: visible;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    }
-
-    .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    }
-
 </style>
 <!---------------------------------------------------------------------------------------------------------------------->
 
@@ -270,7 +253,7 @@
             var jd = data[i];
             var act = [];
             for(laden=0;laden<data[i+data.length/2].length;laden++){
-                act.push('<a href="/acts/'+data[laden+data.length/2][laden]+'.txt">'+data[i+data.length/2][laden]+'</a>');
+                act.push('<a href="/acts/'+data[i+data.length/2][laden]+'.txt">'+data[i+data.length/2][laden]+'</a>');
             };
             var act_num = data[i+data.length/2].length;
             var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
