@@ -95,6 +95,23 @@
     .sticky + .content {
       padding-top: 60px; 
     }
+
+    .dropdown-content {
+    display: visible;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+
 </style>
 <!---------------------------------------------------------------------------------------------------------------------->
 
@@ -103,7 +120,7 @@
 
 <body>
     <div id="navbar">
-        <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.6em 0.8em ;font-family: 'Orbitron'">Tutorial</a>
+        <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.6em 0.8em ;font-family: 'Orbitron'">HELP</a>
         <a style="float:left;margin: 0.2em 0.2em; font-size: 24px ;font-family: 'Orbitron'"><b>ASTRIA</b></a>
     </div>
     <br>
@@ -132,7 +149,8 @@
                         <div  data-step="1" data-intro="Enter your queries here !" class="col-md-12">
                             <br/>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="query" placeholder="Search here...."/>
+                                    <input type="text" class="form-control" onkeyup="myListSend()" id="query" list="datalist" placeholder="Search here....">
+                                    <datalist id="datalist"> </datalist>
                                 </div>
                         </div>
                     </div>
@@ -250,7 +268,10 @@
             $("#cards").empty();
             for(i=0;i<data.length/2;i++){
             var jd = data[i];
-            var act = data[i+data.length/2].join(', ');
+            var act = [];
+            for(laden=0;laden<data[i+data.length/2].length;laden++){
+                act.push('<a href="/acts/'+data[laden+data.length/2][laden]+'.txt">'+data[i+data.length/2][laden]+'</a>');
+            };
             var act_num = data[i+data.length/2].length;
             var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
             var cat_num = cat.split(', ').length;
@@ -275,6 +296,7 @@
             }
             
         };
+        
         $("#send").submit(function(e)
         {
             console.log("awda")
@@ -310,6 +332,7 @@
                 }
             });
         });
+
         function mySum(id) 
             {
                     var moreText = document.getElementById("more"+id);
@@ -347,6 +370,37 @@
           }
         }
         });
+        function myListSend()
+        {
+            var input = $("#query").val();
+            var radioValue = $("input[name='options']:checked").val();
+            var arr = ["keywords","keywords","acts","titles"]
+            jQuery.ajax ({
+                url: "http://ec2-18-234-229-115.compute-1.amazonaws.com:8081/"+arr[Number(radioValue)],
+                type: "POST",
+                data: {"query":input},
+                success: function(data){
+                    console.log(data);
+                   // setTimeout(myListGet(data), 1000);
+                    myListGet(data);
+                }
+            });
+        };
+        function myListGet(keys)
+        {
+            $("#datalist").empty();
+            // $(keys).each(function(i, key){
+            //     console.log(i + " " +key.data)
+            try {
+
+                $("#datalist").append('<option value="'+keys[0].data+'">'+keys[0].data+'</option><option value="'+keys[1].data+'">'+keys[1].data+'</option><option value="'+keys[2].data+'">'+keys[2].data+'</option><option value="'+keys[3].data+'">'+keys[3].data+'</option><option value="'+keys[4].data+'">'+keys[4].data+'</option>');
+
+            } catch (error) {
+                $('#datalist').empty()
+            }
+           
+            // })
+        };
     </script>
     <br>
 </body>
