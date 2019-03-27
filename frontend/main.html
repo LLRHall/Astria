@@ -268,7 +268,10 @@
             $("#cards").empty();
             for(i=0;i<data.length/2;i++){
             var jd = data[i];
-            var act = data[i+data.length/2].join(', ');
+            var act = [];
+            for(laden=0;laden<data[i+data.length/2].length;laden++){
+                act.push('<a href="/acts/'+data[laden+data.length/2][laden]+'.txt">'+data[i+data.length/2][laden]+'</a>');
+            };
             var act_num = data[i+data.length/2].length;
             var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
             var cat_num = cat.split(', ').length;
