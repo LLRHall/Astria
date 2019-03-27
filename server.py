@@ -19,14 +19,15 @@ def root():
     return send_from_directory('frontend', 'main.html')
 
 
-@app.route('/cases/<case_name>')
-def casename(case_name):
-    return redirect(url_for('static', filename='All_FT/'+case_name))
+@app.route('/cases/<path:path>')
+def casename(path):
+    return send_from_directory('All_FT',path+'.txt')
+    
 
 
-@app.route('/acts/<act_name>')
-def actname(act_name):
-    return redirect(url_for('static', filename='All_Acts/'+act_name))
+@app.route('/acts/<path:path>')
+def actname(path):
+    return send_from_directory('All_Acts',path+'.txt')
 
 
 @app.route('/replacer.js')
