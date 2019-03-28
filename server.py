@@ -21,13 +21,13 @@ def root():
 
 @app.route('/cases/<path:path>')
 def casename(path):
-    #print(path)
-    return send_from_directory('All_FT',path)
+    return send_from_directory('All_FT', path)
+
 
 @app.route('/acts/<path:path>')
 def actname(path):
-    #print(path)
-    return send_from_directory('All_Acts',path)
+    return send_from_directory('All_Acts', path)
+
 
 @app.route('/replacer.js')
 def replacer():
@@ -38,8 +38,6 @@ def replacer():
 def query1():
 
     query = request.get_json()
-    # print(request.body)
-    # print(query)
     keywordsList = query[0]['query']
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
@@ -357,4 +355,4 @@ def autocomplete():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
