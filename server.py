@@ -21,13 +21,13 @@ def root():
 
 @app.route('/cases/<path:path>')
 def casename(path):
-    return send_from_directory('All_FT',path+'.txt')
-    
-
+    #print(path)
+    return send_from_directory('All_FT',path)
 
 @app.route('/acts/<path:path>')
 def actname(path):
-    return send_from_directory('All_Acts',path+'.txt')
+    #print(path)
+    return send_from_directory('All_Acts',path)
 
 @app.route('/replacer.js')
 def replacer():
@@ -357,4 +357,4 @@ def autocomplete():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')
