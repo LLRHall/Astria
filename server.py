@@ -61,6 +61,10 @@ def replacer():
 def wallpaper():
     return send_from_directory("static", "wallpaper1.png")
 
+@app.route('/logo.png')
+def logo():
+    return send_from_directory("static", "logo.png")    
+
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
 
