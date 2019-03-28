@@ -1,6 +1,4 @@
-#########################################################
-############ INSTALLING AND RUNNING THE APP #############
-#########################################################
+# INSTALLING AND RUNNING THE APP
 
 # Install Python3 and pip
 1. Update ubuntu packages `sudo apt-get update` 
