@@ -92,16 +92,18 @@ virtualenv --python=python3.6 venv
 ```
 cd ElasticData
 ```
-2. cd into `cd TheFinalJson`, and run 
+2. Now run 
 ```
+cd TheFinalJson
 curl localhost:9200/cases/_bulk -H "Content-type:application/json" -X POST --data-binary @CasesFinal.json
 ```
 3. Go back using 
 ```
 cd ..
 ```
-4. cd into `cd acts` and run 
+4. Go to `acts` and run 
 ```
+cd acts
 curl localhost:9200/acts/_bulk -H "Content-type:application/json" -X POST --data-binary @Acts.json
 ```
 5. Come back to the main repo using 
@@ -172,7 +174,7 @@ for starting the server.
 1. Open another terminal and open the main repo
 2. Run 
 ```
-python3 server.py
+python server.py
 ```
 
 
