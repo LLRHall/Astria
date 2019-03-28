@@ -6,13 +6,13 @@
 3. Check if Python3 is installed `python3.6 --version` or `python3 --version`
 4. Install pip for Python3.6 `sudo apt-get install python3.6-pip`
 5. Install virtualenv `sudo pip3.6 install virtualenv`
-6. `virtualenv --python=python3.6 venv` 
+6. Create the virtualenv`virtualenv --python=python3.6 venv` 
 7. Activate virtualenv using `. venv/bin/activate`
 
 
 # Install elastic-search and python dependencies, and running elastic-search server
 1. cd into the main repo, `OpenSoftLLR19`.
-2. Identify `install.sh` and run `chmod +x `install.sh`.
+2. Identify `install.sh` and run `chmod +x install.sh`.
 3. Run `sudo install.sh` for installing all the packages for running elastic-search.
 
 
