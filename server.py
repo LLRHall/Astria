@@ -215,7 +215,7 @@ def query3():
         act = "*"
     if cat == "":
         cat = "*"
-    print(judge)
+
     res = es.search(index="cases",
                     body={"query": {
 
@@ -288,8 +288,6 @@ def query4():
     s = ""
     for x in searchString:
         s = s + x + " "
-
-    print(s)
     a = bc.encode([s])
 
     arr = np.load("all_arr.npy")
