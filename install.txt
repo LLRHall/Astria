@@ -1,0 +1,17 @@
+##########################################
+############ RUNNING THE APP #############
+##########################################
+
+1. Run `chmod +x `install.sh`.
+2. Run `sudo install.sh` for installing all the packages for running elastic-search.
+3. Run `curl -X GET localhost:9200` to check if elastic search is working.
+4. Run `chmod +x run_node.sh` and `sudo run_node.sh` to install node dependencies.
+5. cd into the `node` folder. Run `node server.js`
+
+6. Download the trained model `wget 0 https://storage.googleapis.com/bert_models/2018_10_18/uncased_L-12_H-768_A-12.zip`
+7. Unzip the files into `../tmp/`
+8. Open another terminal and cd into tmp/
+7. Run `bert-serving-start -model_dir ../tmp/uncased_L-12_H-768_A-12 -num_worker=1 -max_seq_len=500
+5. Run `python server.py` for starting the server.
+
+
