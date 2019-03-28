@@ -12,10 +12,55 @@
 
 # Install elastic-search and python dependencies, and running elastic-search server
 1. cd into the main repo, `OpenSoftLLR19`.
-2. Identify `install.sh` and run `chmod +x install.sh`.
-3. Run `sudo ./install.sh` for installing all the packages for running elastic-search.
-4. Press `enter` when prompted.
-5. You will be asked to accept the license when prompted. Press enter to accept the license
+2. Run the following commands
+
+* ```
+  # set up keys
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
+  # Update files and install default-jre
+  apt-get update
+  apt-get install default-jre -y
+
+
+  # Install JDK
+  apt-get install default-jdk -y
+
+  # Install Oracle JDK
+  add-apt-repository ppa:webupd8team/java
+  apt-get update
+
+  # Install JDK 9
+  apt-get install oracle-java8-installer -y
+  
+* ```
+  # Import the Elasticsearch PGP key
+  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+
+  # Install transport-https package 
+  apt-get install apt-transport-https -y
+  echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-6.x.list
+
+  # Install elastic-search 
+  apt-get update 
+  apt-get install elasticsearch -y
+
+  # Running Elasticsearch with systemd
+  /bin/systemctl daemon-reload
+  /bin/systemctl enable elasticsearch.service
+
+  # Start elasticsearch
+  systemctl start elasticsearch.service
+
+  # Make a GET request, to check if elasticsearch node is running
+  # curl -X GET "localhost:9200/"
+
+  # Install the libraries from pip
+  pip install -r requirements.txt
+
+
+2. Press `enter` when prompted.
+3. You will be asked to accept the license for installing java when prompted. Press enter to accept the license
 
 
 # Loading the different API endpoints of ElasticSearch is working
