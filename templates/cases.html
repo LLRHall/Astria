@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ name }}</title>
+
+	<style type="text/css">
+		 pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+         }
+
+		.filebody {
+			
+		    align-content: justify;
+		    display: inline-block;
+		    text-align: justify;
+		    max-width: 100%;
+		    padding: 2em;
+		    line-height: 2em;
+		    padding-top: 0em !important;
+		    
+		    padding-bottom: 1em;
+		    padding-left: 0;
+		}
+
+		.headings{
+			align-content: justify;
+			display: inline-block;
+			text-align: justify;
+			padding: 1em;
+			width: 80%;
+			font-weight: bold;
+			line-height: 1.5em;
+			border: 1px solid black;
+		}
+
+	</style>
+	</head>
+	<body>
+		<div class="headings">
+			{% for item in headings %}
+				{{ item }} <br/>
+			{% endfor %}
+		</div>
+		<ol>
+		{% for item in text %}
+		   	<li class="filebody"> {{ item }} </li>
+		{% endfor %}
+		</ol>
+		
+	</body>
+</html>

@@ -5,3 +5,5 @@ Model/
 node/node_modules/*
 All_Acts/*
 static/All_act/
+list.txt
+all_arr.npy

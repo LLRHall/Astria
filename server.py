@@ -1,35 +1,56 @@
 from elasticsearch import Elasticsearch
-from flask import Flask, request, jsonify, send_from_directory, url_for, redirect
+from flask import Flask, request, jsonify, send_from_directory, url_for, redirect, render_template
 import gensim
+import fnmatch
+import pickle
+from scipy import spatial
+from bert_serving.client import BertClient
+import numpy as np
 
+
+bc = BertClient()
 es = Elasticsearch("http://localhost:9200")
 app = Flask(__name__)
-
-
-def getRank(input_string):
-
-    model = gensim.models.doc2vec.Doc2Vec.load("Model/NEW_D2V.model")
-    similar_doc = model.docvecs.most_similar(
-        positive=[model.infer_vector(input_string.split())], topn=10)
-    return similar_doc
 
 
 @app.route('/')
 def root():
     return send_from_directory('frontend', 'main.html')
 
+
 @app.errorhandler(404)
 def page_not_found(e):
-    return send_from_directory("frontend","error.html")
+    return send_from_directory("frontend", "error.html")
+
 
 @app.route('/cases/<path:path>')
 def casename(path):
-    return send_from_directory('All_FT', path)
+    text = open("All_FT/"+path,'r+')
+    name = path[:-4]
+    content = text.read()
+    content = content.split('\n')
+    index = content.index(fnmatch.filter(content,'1.*')[0])
+    headings = content[:index]
+    sections = content[index:]
+    text.close()
+
+    # return send_from_directory('All_FT', path)
+    return render_template('cases.html',name=name,text=sections,headings=headings)
 
 
 @app.route('/acts/<path:path>')
 def actname(path):
-    return send_from_directory('All_Acts', path)
+    text = open("All_Acts/"+path,'r+')
+    name = path[:-4]
+    content = text.read()
+    text.close()
+    content=content.split('\n')
+    sections = []
+    for x in content:
+        sections.append(x.split('-->'))
+    print(len(sections))
+    return render_template('acts.html',name=name,text=sections)
+    # return send_from_directory('All_Acts', path)
 
 
 @app.route('/replacer.js')
@@ -220,7 +241,7 @@ def query3():
         act = "*"
     if cat == "":
         cat = "*"
-    print(judge)
+
     res = es.search(index="cases",
                     body={"query": {
 
@@ -290,8 +311,24 @@ def query4():
     if cat == "":
         cat = "*"
 
-    tuple_list = getRank(searchString[0])
-    file_list = [i[0] for i in tuple_list]
+    s = ""
+    for x in searchString:
+        s = s + x + " "
+    a = bc.encode([s])
+
+    arr = np.load("all_arr.npy")
+    f = open("list.txt", 'rb')
+    flist = pickle.load(f)
+    similarity = np.zeros((arr.shape[0], 1), dtype=float)
+
+    for x in range(arr.shape[0]):
+        sim = 100-spatial.distance.cosine(arr[x], a)*100
+        similarity[x] = sim
+
+    sort_indices = np.argsort(similarity, axis=0)
+    sort_indices = np.ravel(sort_indices[::-1][:10])
+    sort_indices = sort_indices.tolist()
+    file_list = [flist[x] for x in sort_indices]
 
     res = []
     for i in file_list:
@@ -361,4 +398,4 @@ def autocomplete():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost')
+    app.run(debug=True)
