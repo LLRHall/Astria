@@ -117,7 +117,7 @@
 <body>
     <div id="navbar" class="shadow">
         <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.8em 0.8em ;font-family: 'Orbitron'" align="middle">HELP</a>
-        <a id="go-to-top" style="float:left;margin: 0.2em 0.2em; font-size: 24px ;font-family: 'Orbitron'"><img src="logo.png" width="42" height="42" align="middle"><b>&nbsp ASTRIA </b></a>
+        <a id="go-to-top" style="float:left;margin: 0.2em 0.2em; font-size: 24px ;font-family: 'Orbitron';cursor: pointer; "><img src="logo.png" width="42" height="42" align="middle"><b>&nbsp ASTRIA </b></a>
     </div>
     <br/>
     <br/>
@@ -145,7 +145,7 @@
                         <div  data-step="1" data-intro="Enter your queries here !" class="col-md-12">
                             <br/>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" onkeyup="myListSend()" id="query" list="datalist" placeholder="Search here....">
+                                    <input type="text" class="form-control" onkeyup="myListSend()" id="query" list="datalist" placeholder="Search here">
                                     <datalist id="datalist"> </datalist>
                                 </div>
                         </div>
@@ -262,28 +262,32 @@
     <script>
         function RecieveFunc(data){
             $("#cards").empty();
-            for(i=0;i<data.length/2;i++){
-            var jd = data[i];
-            var act = [];
-            for(count=0;count<data[i+data.length/2].length;count++){
-                act.push('<a target="blank" href="/acts/'+data[i+data.length/2][count]+'.txt">'+data[i+data.length/2][count]+'</a>');
-            };
-            var act_num = data[i+data.length/2].length;
-            var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
-            var cat_num = cat.split(', ').length;
-            var judge = jd._source.judge;
-            var judgement = jd._source.result;
-            var summary = jd._source.Summary200;
-            var title = jd._source.title;
-            var cit_id = jd._source.cit_id;
-            var date = jd._source.date.substring(0,4)+'/'+jd._source.date.substring(4,6)+'/'+jd._source.date.substring(6,8);
-            var filenameUrl = 'cases/'+ jd._source.filename + '.txt';
-            $("#cards").append('<br><div class="card w-75 center boxy shadow p-3 mb-5 bg-white rounded"><div class="card-body"><h5 class="card-title tooltip" style="color:grey;font-size: 24px"><b>'+title+'</b><span class="tooltiptext" style="font-size: 12px">'+cit_id+'</span></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
-            };
+            if(data.length===0){
+                $("#cards").append('<div class="card text-center shadow rounded w-75 center"><div class="card-body"><h5 class="card-title">No results found!</h5></div></div>')
+            }
+            else{
+                for(i=0;i<data.length/2;i++){
+                var jd = data[i];
+                var act = [];
+                for(count=0;count<data[i+data.length/2].length;count++){
+                    act.push('<a target="blank" href="/acts/'+data[i+data.length/2][count]+'.txt">'+data[i+data.length/2][count]+'</a>');
+                };
+                var act_num = data[i+data.length/2].length;
+                var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
+                var cat_num = cat.split(', ').length;
+                var judge = jd._source.judge;
+                var judgement = jd._source.result;
+                var summary = jd._source.Summary200;
+                var title = jd._source.title;
+                var cit_id = jd._source.cit_id;
+                var date = jd._source.date.substring(0,4)+'/'+jd._source.date.substring(4,6)+'/'+jd._source.date.substring(6,8);
+                var filenameUrl = 'cases/'+ jd._source.filename + '.txt';
+                $("#cards").append('<br><div class="card w-75 center boxy shadow p-3 mb-5 bg-white rounded"><div class="card-body"><h5 class="card-title tooltip" style="color:grey;font-size: 24px"><b>'+title+'</b><span class="tooltiptext" style="font-size: 12px">'+cit_id+'</span></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
+                };
+            }
         };
         function dateModifier(date){
             var temp = date.split('/');
-            console.log("wd")
             if(temp.length===3){
                 return temp[2].concat(temp[1], temp[0]);
             }
@@ -295,9 +299,7 @@
         
         $("#send").submit(function(e)
         {
-            console.log("awda")
             e.preventDefault();
-            console.log("Yo!");
             var radioValue = $("input[name='options']:checked").val();
             var q = $("#query").val();
             var s_d = dateModifier($("#startDate").val());
@@ -322,8 +324,8 @@
             ),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
+                beforeSend:function(){ $("#cards").append('<div class="text-center"><div class="spinner-border text-secondary" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span></div></div>') },
                 success: function(data){
-                    console.log(data);
                     RecieveFunc(data);
                 }
             });
@@ -372,11 +374,10 @@
             var radioValue = $("input[name='options']:checked").val();
             var arr = ["keywords","keywords","acts","titles"]
             jQuery.ajax ({
-                url: "http://ec2-18-234-229-115.compute-1.amazonaws.com:8081/"+arr[Number(radioValue)],
+                url: "https://astria.dns-cloud.net/"+arr[Number(radioValue)],
                 type: "POST",
                 data: {"query":input},
                 success: function(data){
-                    console.log(data);
                    // setTimeout(myListGet(data), 1000);
                     myListGet(data);
                 }
@@ -400,6 +401,7 @@
         $('#go-to-top').each(function(){
             $(this).click(function(){ 
                 $('html,body').animate({ scrollTop: 0 }, 'slow');
+                $('form')[0].reset()
                     return false; 
                 });
         });
