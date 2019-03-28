@@ -25,7 +25,11 @@ def page_not_found(e):
 
 @app.route('/cases/<path:path>')
 def casename(path):
-    text = open("All_FT/"+path, 'r+')
+    try:
+        text = open("All_FT/"+path, 'r+')
+    except OSError as e:
+        return page_not_found(e)
+
     name = path[:-4]
     content = text.read()
     content = content.split('\n')
@@ -40,7 +44,11 @@ def casename(path):
 
 @app.route('/acts/<path:path>')
 def actname(path):
-    text = open("All_Acts/"+path, 'r+')
+    try:
+        text = open("All_Acts/"+path, 'r+')
+    except OSError as e:
+        return page_not_found(e)
+
     name = path[:-4]
     content = text.read()
     text.close()
@@ -48,9 +56,7 @@ def actname(path):
     sections = []
     for x in content:
         sections.append(x.split('-->'))
-    print(len(sections))
     return render_template('acts.html', name=name, text=sections)
-    # return send_from_directory('All_Acts', path)
 
 
 @app.route('/replacer.js')
