@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ name }}</title>
+
+	<style type="text/css">
+		 pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+         }
+
+		.filebody {
+			
+		    align-content: justify;
+		    display: inline-block;
+		    text-align: justify;
+		    width: 95%;
+		    padding: 2em;
+		    line-height: 2em;
+		    padding-top: 0em !important;
+		    border: 1px solid black;
+		    margin-bottom: 0.1em;
+
+		}
+
+	</style>
+	</head>
+	<body>
+
+		<h1 align="center"> {{ name }}</h1>
+		
+   {% for item in text %}
+   <section class="filebody"><h3> {{item[0]}}</h3> {{ item[1] }}</section> <br/>
+   {% endfor %}
+	</body>
+</html>
