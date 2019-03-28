@@ -374,7 +374,7 @@
             var radioValue = $("input[name='options']:checked").val();
             var arr = ["keywords","keywords","acts","titles"]
             jQuery.ajax ({
-                url: "http://ec2-18-234-229-115.compute-1.amazonaws.com:8081/"+arr[Number(radioValue)],
+                url: "https://astria.dns-cloud.net/"+arr[Number(radioValue)],
                 type: "POST",
                 data: {"query":input},
                 success: function(data){
