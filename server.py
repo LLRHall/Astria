@@ -18,6 +18,9 @@ def getRank(input_string):
 def root():
     return send_from_directory('frontend', 'main.html')
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return send_from_directory("frontend","error.html")
 
 @app.route('/cases/<path:path>')
 def casename(path):
