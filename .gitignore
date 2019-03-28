@@ -1,3 +1,7 @@
 ElasticData/Cases/cpy
 Model/NEW_D2V.model
 All_FT/*
+Model/
+node/node_modules/*
+All_Acts/*
+static/All_act/

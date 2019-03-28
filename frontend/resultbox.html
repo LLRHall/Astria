@@ -7,138 +7,139 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        body 
-        {
-            margin: auto;
-            background:  #d1d1d1;
-        }
-        .center 
-        {
-            margin: auto;
-            padding: 20px;
-            width: 50%;
-        }
-        .right
-        {
-            align-content: right;
-            right: auto;
-        }
+    <link href="https://fonts.googleapis.com/css?family=Margarine|Monoton|Orbitron" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" type="text/javascript"></script>
+    <script src="replacer.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-        .tooltip
-        {
-            position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted black;
-        }
-
-        .tooltip .tooltiptext 
-        {
-            visibility: hidden;
-            width: 120px;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 1;
-        }
-
-        .tooltip:hover .tooltiptext 
-        {
-            visibility: visible;
-        }
-    </style>
-
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css" rel="stylesheet" type="text/css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" type="text/javascript"></script>
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js" type="text/javascript"></script>
-
-<script>
-  var options = {
-    shouldSort: true,
-    threshold: 0.2,
-    location: 0,
-    distance: 100,
-    maxPatternLength: 32,
-    minMatchCharLength: 1,
-    keys: ["data"],
+<style>
+    body 
+    {
+        margin: auto;
+        background-image: url("wallpaper1.png");
+    }
+    .center 
+    {
+        margin: auto;
+        padding: 20px;
+        width: 50%;
+    }
+    .right
+    {
+        align-content: right;
+        right: auto;
+    }
+    .tooltip
+    {
+        position: relative;
+        display: inline-block;
+        color: red;
+        opacity: 1!important;
+        z-index: 4;
+    }
+    .tooltip .tooltiptext 
+    {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 8;
+    }
+    .tooltip:hover .tooltiptext 
+    {
+        visibility: visible;
+    }
+    #navbar 
+    {
+            z-index:1200;
+            overflow: hidden;
+            background-color: #333;
+    }
     
-   
-  };
-
-  $.getJSON("https://karannaoh.github.io/css/fonts/data.json", function(result){
-
-    fuse=new Fuse(result, options);
-
-  })
-
-
-</script>
-
-
-    <title>Result box</title>
-  </head>
-  <body>
-    <h1 align="center">DEMO</h1>
-    <br/>
-      <div class="card w-75 center">
-          <div class="container">
-              <form action="" method="">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <br/>
-                              <div class="form-group">
-                                  <input type="text" class="form-control" id="query1" placeholder="Query"/>
-                              </div>
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="col-md-3">
-                          <div class="form-group">
-
-                              <input id="startDate" width="200" placeholder="Start Date"/>
-
-                              <input id="endDate" width="200" placeholder="End Date"/>
-
-
+    #navbar a {
+          float: right;
+          display: block;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 8px 16px;
+          text-decoration: none;
+          font-size: 17px;
+          border-radius: 8px;
+    }
+    
+    #navbar a.active {
+      background-color: #003366;
+      color: white;
+    }
+    .content {
+      padding: 16px;
+    }
+    .sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    .sticky + .content {
+      padding-top: 60px; 
+    }
+</style>
 <!---------------------------------------------------------------------------------------------------------------------->
 
 <title>Result box</title>
 </head>
 
 <body>
-    <h1 align="center">DEMO</h1>
-    <br/>
+    <div id="navbar">
+        <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.6em 0.8em ;font-family: 'Orbitron'">HELP</a>
+        <a style="float:left;margin: 0.2em 0.2em; font-size: 24px ;font-family: 'Orbitron'"><b>ASTRIA</b></a>
+    </div>
+    <br>
+    <br>
+    <br>
         <div class="card w-75 center">
             <div class="container">
                 <form id = "send" action="" method="">
+
+                        <div data-step="6" data-intro="Select query type" class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                  <input type="radio" name="options" value="1" autocomplete="off" checked> Keywords
+                                </label>
+                                <label class="btn btn-secondary">
+                                  <input type="radio" name="options"  value="2" autocomplete="off"> Acts
+                                </label>
+                                <label class="btn btn-secondary">
+                                  <input type="radio" name="options" value="3" autocomplete="off"> Cases
+                                </label>
+                                <label class="btn btn-secondary">
+                                        <input type="radio" name="options" value="4" autocomplete="off"> <span class='tooltip' style="color:white!important"> Query <span class='tooltiptext'> Tell us about your situation </span></span>
+                                </label>
+                        </div>
+                  
                     <div class="row">
-                        <div  data-step="1" data-intro="Ok, wasn't that fun?" class="col-md-12">
+                        <div  data-step="1" data-intro="Enter your queries here !" class="col-md-12">
                             <br/>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="query" placeholder="Query"/>
+                                    <input type="text" class="form-control" onkeyup="myListSend()" id="query" list="datalist" placeholder="Search here....">
+                                    <datalist id="datalist"> </datalist>
                                 </div>
                         </div>
                     </div>
                  
                     <div class="row">
-                        <div data-step="2" data-intro="Ok, wasn't that fun?" class="col-md-3 ">
+                        <div data-step="2" data-intro="Filter your results by date" class="col-md-3 ">
                             <div class="form-group">
                               
                                 <input id="startDate" width="200" placeholder="Start Date"/>
@@ -153,44 +154,37 @@
                                         }});
                                 </script>
                             </div>
+                            <div class="form-group">
+                                <input id="endDate" width="200" placeholder="End Date"/>
+                                <script>
+                                    var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                                    $('#endDate').datepicker({
+                                        uiLibrary: 'bootstrap4',
+                                        iconsLibrary: 'fontawesome',
+                                        minDate: function () {
+                                            return $('#startDate').val();
+                                        }
+                                    });
+                                </script>
+                            </div>
                         </div>
-                        <div data-step="4" data-intro="Ok, wasn't that fun?" class="col-md-3">
+                        <div data-step="3" data-intro="Filter by Category" class="col-md-3">
                             <div class="form-group">
                               
                                 <input type="text" class="form-control" id="cat_in" placeholder="Category"/>
                             </div>
                         </div>
-                        <div data-step="5" data-intro="Ok, wasn't that fun?" class="col-md-3">
+                        <div data-step="4" data-intro="Filter by specific Acts" class="col-md-3">
                             <div class="form-group">                                  
                                 <input type="text" class="form-control" id="act_in" placeholder="Acts"/>
                             </div>
                         </div>
-                        <div data-step="6" data-intro="Ok, wasn't that fun?" class="col-md-3">
+                        <div data-step="5" data-intro="Filter by a specific Judge" class="col-md-3">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="jud_in" placeholder="Judge"/>
                                 </div>
                         </div>
-                        </div>
-                        <div class="row">
-                                <div data-step="3" data-intro="Ok, wasn't that fun?" class="col-md-3">
-                                        <div class="form-group">
-                                            <input id="endDate" width="200" placeholder="End Date"/>
-                                            <script>
-                                                var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-                                                $('#endDate').datepicker({
-                                                    uiLibrary: 'bootstrap4',
-                                                    iconsLibrary: 'fontawesome',
-                                                    minDate: function () {
-                                                        return $('#startDate').val();
-                                                    }
-                                                });
-                                            </script>
-                                </div>
-                                </div>
-                                <div class="col-md-3"> </div>
-                                <div class="col-md-3"> </div>
-                                <div class="col-md-3"> </div>
-                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-3"> </div>
                         <div class="col-md-3"> </div>
@@ -204,8 +198,7 @@
         </div>  
     </div>
     <br/>
-
-    <!-------------------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------------------->
 
     <!-- <div class="card w-75 center">
         <div class="card-body">
@@ -254,34 +247,75 @@
       <!------------------------------------------------------------------------------------------------------------------------------>
     <div id="cards"></div>
     <script>
-        $(document).ready(function(){
-            a = [{'_index': 'cases', '_type': 'case', '_id': '230', '_score': 7.8923335, '_source': {'date': '2  May  2014', 'filename': '2014_S_72', 'title': 'Selvam v State Through Inspector of Police', 'cit-id': '2014 Indlaw SC 325', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'B. S. Chauhan, J.', 'act-used': '', 'result': 'Appeal disposed of\n'}}, {'_index': 'cases', '_type': 'case', '_id': '52985', '_score': 7.8923335, '_source': {'date': '13 March 2014', 'filename': '2014_S_374', 'title': 'Bhagwan Tukaram Dange v State of Maharashtra', 'cit-id': '2014 Indlaw SC 165', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'K. S. Radhakrishnan, J.', 'act-used': '', 'result': 'Appeal disposed of\n'}}, {'_index': 'cases', '_type': 'case', '_id': '7421', '_score': 7.752153, '_source': {'date': '13 March 2014', 'filename': '2014_S_431', 'title': 'Kanhaiya Lal v State of Rajasthan', 'cit-id': '2014 Indlaw SC 164', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'C. Nagappan, J.', 'act-used': '', 'result': 'Appeal allowed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '11826', '_score': 7.752153, '_source': {'date': '3 October 2002', 'filename': '2002_S_216', 'title': 'Varinder Kumar Babla v State Of Himachal Pradesh', 'cit-id': '2002 Indlaw SC 1131', 'case-cat': '', 'subject': 'Criminal', 'legal-key': 'Murder', 'parts': '', 'judge': '', 'act-used': '', 'result': 'Appeal disposed of.\n'}}, {'_index': 'cases', '_type': 'case', '_id': '24652', '_score': 7.752153, '_source': {'date': '15 April 2014', 'filename': '2014_S_307', 'title': 'Prakash v State of Karnataka', 'cit-id': '2014 Indlaw SC 249', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'Madan B. Lokur, J.', 'act-used': '', 'result': 'Appeal allowed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '20599', '_score': 7.545122, '_source': {'date': '22 November 1972', 'filename': '1972_K_21', 'title': 'Karan Singh v State of Uttar Pradesh', 'cit-id': '1972 Indlaw SC 429', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'ALAGIRISWAMI, J.', 'act-used': '', 'result': 'Appeal dismissed.\n'}}, {'_index': 'cases', '_type': 'case', '_id': '24329', '_score': 7.545122, '_source': {'date': '9  May  2014', 'filename': '2014_S_248', 'title': 'Dhan Raj and another v State of Haryana', 'cit-id': '2014 Indlaw SC 356', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder', 'parts': '', 'judge': 'Pinaki Chandra Ghose, J.', 'act-used': '', 'result': 'Appeals allowed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '8213', '_score': 7.4286904, '_source': {'date': '14 January 2010', 'filename': '2010_S_274', 'title': 'Shivanagoud Chanegoud Patil And Others v State Of Karnataka', 'cit-id': '2010 Indlaw SC 45', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder, Conviction', 'parts': '', 'judge': '', 'act-used': '', 'result': 'Appeal disposed of\n'}}, {'_index': 'cases', '_type': 'case', '_id': '10622', '_score': 7.4286904, '_source': {'date': '12 August 2014', 'filename': '2014_K_91', 'title': 'Kuratikar Sudhakar v State of Andhra Pradesh', 'cit-id': '2014 Indlaw SC 517', 'case-cat': '', 'subject': 'Criminal', 'legal-key': 'Murder, Conviction', 'parts': '', 'judge': 'S. A. Bobde, J.', 'act-used': '', 'result': 'Appeal dismissed\n'}}, {'_index': 'cases', '_type': 'case', '_id': '15635', '_score': 7.4286904, '_source': {'date': '23  May  2014', 'filename': '2014_S_443', 'title': 'Paulmeli and another v State of Tamil Nadu Through Inspector of Police', 'cit-id': '2014 Indlaw SC 386', 'case-cat': '', 'subject': 'Criminal| Practice & Procedure', 'legal-key': 'Murder, Conviction', 'parts': '', 'judge': 'B. S. Chauhan, J.', 'act-used': '', 'result': 'Appeal dismissed\n'}}];
-                $("button").click(function(){
-                    $.each(a, function(i, jd){
-                    var act = jd.act.join(", ");
-                    var cat = jd.Categories.join(", ");       
-                        $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title"><b>Case title</b></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge <span class="badge badge-primary badge-pill">1</span></th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">14</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">10</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+jd.judgement+'</td><td id="judge">'+jd.judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+jd.Date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">The Big Robbery</h5><p class="card-text">'+jd.summary+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')">Read More</a></div></div>');
-                    });
-                });
-            });
-    </script>
-    <script>
+        function RecieveFunc(data){
+            $("#cards").empty();
+            for(i=0;i<data.length/2;i++){
+            var jd = data[i];
+            var act = [];
+            for(laden=0;laden<data[i+data.length/2].length;laden++){
+                act.push('<a href="/acts/'+data[i+data.length/2][laden]+'.txt">'+data[i+data.length/2][laden]+'</a>');
+            };
+            var act_num = data[i+data.length/2].length;
+            var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
+            var cat_num = cat.split(', ').length;
+            var judge = jd._source.judge;
+            var judgement = jd._source.result;
+            var summary = jd._source.Summary200;
+            var title = jd._source.title;
+            var cit_id = jd._source.cit_id;
+            var date = jd._source.date.substring(0,4)+'/'+jd._source.date.substring(4,6)+'/'+jd._source.date.substring(6,8);
+            var filenameUrl = 'cases/'+ jd._source.filename + '.txt';
+            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title tooltip" style="color:grey;font-size: 24px"><b>'+title+'</b><span class="tooltiptext" style="font-size: 12px">'+cit_id+'</span></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
+            };
+        };
+        function dateModifier(date){
+            var temp = date.split('/');
+            console.log("wd")
+            if(temp.length===3){
+                return temp[2].concat(temp[1], temp[0]);
+            }
+            else{
+                return '';
+            }
+            
+        };
+        
         $("#send").submit(function(e)
         {
+            console.log("awda")
             e.preventDefault();
             console.log("Yo!");
+            var radioValue = $("input[name='options']:checked").val();
             var q = $("#query").val();
-            var s_d = $("#startDate").val();
-            var e_d = $("#endDate").val();
+            var s_d = dateModifier($("#startDate").val());
+            var e_d = dateModifier($("#endDate").val());
             var c = $("#cat_in").val();
             var j = $("#jud_in").val();
             var a = $("#act_in").val();
             var payload = {"query":q.split(" "),"time":{"from":s_d,"to":e_d},"cat":c,"judge": j,"act": a};
-            $.post("demo_test_post.asp", payload,  function(data, status)
-            {
-                alert("Data: " + data + "\nStatus: " + status);
+           
+            jQuery.ajax ({
+                url: "query"+radioValue,
+                type: "POST",
+                data: JSON.stringify(
+            
+            [{
+                "query":q.split(' '),
+                "time":{"from":s_d,"to":e_d},
+                "cat": c,
+                "judge": j,
+                "act": a
+            }]
+            ),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+                    console.log(data);
+                    RecieveFunc(data);
+                }
             });
         });
+
         function mySum(id) 
             {
                     var moreText = document.getElementById("more"+id);
@@ -304,6 +338,52 @@
                 localStorage.setItem("key", "keyValue");
             };
         });
+        $(document).ready(function(){
+            window.onscroll = function() {myFunction()};
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        function myFunction() 
+        {
+          if (window.pageYOffset >= sticky) 
+          {
+            navbar.classList.add("sticky")
+          } else 
+          {
+            navbar.classList.remove("sticky");
+          }
+        }
+        });
+        function myListSend()
+        {
+            var input = $("#query").val();
+            var radioValue = $("input[name='options']:checked").val();
+            var arr = ["keywords","keywords","acts","titles"]
+            jQuery.ajax ({
+                url: "http://ec2-18-234-229-115.compute-1.amazonaws.com:8081/"+arr[Number(radioValue)],
+                type: "POST",
+                data: {"query":input},
+                success: function(data){
+                    console.log(data);
+                   // setTimeout(myListGet(data), 1000);
+                    myListGet(data);
+                }
+            });
+        };
+        function myListGet(keys)
+        {
+            $("#datalist").empty();
+            // $(keys).each(function(i, key){
+            //     console.log(i + " " +key.data)
+            try {
+
+                $("#datalist").append('<option value="'+keys[0].data+'">'+keys[0].data+'</option><option value="'+keys[1].data+'">'+keys[1].data+'</option><option value="'+keys[2].data+'">'+keys[2].data+'</option><option value="'+keys[3].data+'">'+keys[3].data+'</option><option value="'+keys[4].data+'">'+keys[4].data+'</option>');
+
+            } catch (error) {
+                $('#datalist').empty()
+            }
+           
+            // })
+        };
     </script>
     <br>
 </body>

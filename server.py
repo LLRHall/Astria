@@ -1,18 +1,13 @@
 from elasticsearch import Elasticsearch
 from flask import Flask, request, jsonify, send_from_directory, url_for, redirect
-import gensim
+import pickle
+from scipy import spatial
+from bert_serving.client import BertClient
+import numpy as np
 
+bc = BertClient()
 es = Elasticsearch("http://localhost:9200")
 app = Flask(__name__)
-
-
-def getRank(input_string):
-
-    model = gensim.models.doc2vec.Doc2Vec.load("Model/NEW_D2V.model")
-    similar_doc = model.docvecs.most_similar(
-        positive=[model.infer_vector(input_string.split())], topn=10)
-    return similar_doc
-
 
 @app.route('/')
 def root():
@@ -22,31 +17,25 @@ def root():
 def page_not_found(e):
     return send_from_directory("frontend","error.html")
 
-@app.route('/cases/<case_name>')
-def casename(case_name):
-    return redirect(url_for('static', filename='All_FT/'+case_name))
+@app.route('/cases/<path:path>')
+def casename(path):
+    return send_from_directory('All_FT', path)
 
 
-@app.route('/acts/<act_name>')
-def actname(act_name):
-    return redirect(url_for('static', filename='All_Acts/'+act_name))
+@app.route('/acts/<path:path>')
+def actname(path):
+    return send_from_directory('All_Acts', path)
 
 
 @app.route('/replacer.js')
 def replacer():
     return send_from_directory("static", "replacer.js")
 
-@app.route('/wallpaper1.png')
-def wallpaper():
-    return send_from_directory("static", "wallpaper1.png")
-
 
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
 
     query = request.get_json()
-    # print(request.body)
-    # print(query)
     keywordsList = query[0]['query']
     fromDate = query[0]['time']['from']
     toDate = query[0]['time']['to']
@@ -292,9 +281,27 @@ def query4():
         act = "*"
     if cat == "":
         cat = "*"
+    
+    s=""
+    for x in searchString:
+        s = s + x + " "
 
-    tuple_list = getRank(searchString[0])
-    file_list = [i[0] for i in tuple_list]
+    print(s)
+    a = bc.encode([s])
+
+    arr=np.load("all_arr.npy")
+    f=open("list.txt",'rb')
+    flist = pickle.load(f)
+    similarity = np.zeros((arr.shape[0],1),dtype=float)
+
+    for x in range(arr.shape[0]):
+        sim=100-spatial.distance.cosine(arr[x],a)*100
+        similarity[x]=sim
+
+    sort_indices=np.argsort(similarity,axis=0)
+    sort_indices=np.ravel(sort_indices[::-1][:10])
+    sort_indices=sort_indices.tolist()
+    file_list = [flist[x] for x in sort_indices]
 
     res = []
     for i in file_list:
