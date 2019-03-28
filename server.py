@@ -36,6 +36,9 @@ def actname(path):
 def replacer():
     return send_from_directory("static", "replacer.js")
 
+@app.route('/wallpaper1.png')
+def wallpaper():
+    return send_from_directory("static", "wallpaper1.png")
 
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():
@@ -358,4 +361,4 @@ def autocomplete():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='localhost')
