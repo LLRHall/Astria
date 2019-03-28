@@ -1,9 +1,12 @@
 from elasticsearch import Elasticsearch
-from flask import Flask, request, jsonify, send_from_directory, url_for, redirect
+from flask import Flask, request, jsonify, send_from_directory, url_for, redirect, render_template
+import gensim
+import fnmatch
 import pickle
 from scipy import spatial
 from bert_serving.client import BertClient
 import numpy as np
+
 
 bc = BertClient()
 es = Elasticsearch("http://localhost:9200")
@@ -22,18 +25,45 @@ def page_not_found(e):
 
 @app.route('/cases/<path:path>')
 def casename(path):
-    return send_from_directory('All_FT', path)
+    text = open("All_FT/"+path,'r+')
+    name = path[:-4]
+    content = text.read()
+    content = content.split('\n')
+    index = content.index(fnmatch.filter(content,'1.*')[0])
+    headings = content[:index]
+    sections = content[index:]
+    text.close()
+
+    # return send_from_directory('All_FT', path)
+    return render_template('cases.html',name=name,text=sections,headings=headings)
 
 
 @app.route('/acts/<path:path>')
 def actname(path):
-    return send_from_directory('All_Acts', path)
+    text = open("All_Acts/"+path,'r+')
+    name = path[:-4]
+    content = text.read()
+    text.close()
+    content=content.split('\n')
+    sections = []
+    for x in content:
+        sections.append(x.split('-->'))
+    print(len(sections))
+    return render_template('acts.html',name=name,text=sections)
+    # return send_from_directory('All_Acts', path)
 
 
 @app.route('/replacer.js')
 def replacer():
     return send_from_directory("static", "replacer.js")
 
+@app.route('/wallpaper1.png')
+def wallpaper():
+    return send_from_directory("static", "wallpaper1.png")
+
+@app.route('/logo.png')
+def logo():
+    return send_from_directory("static", "logo.png")    
 
 @app.route('/query1', methods=['GET', 'POST'])
 def query1():

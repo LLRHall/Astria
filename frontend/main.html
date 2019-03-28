@@ -25,11 +25,11 @@
     body 
     {
         margin: auto;
-        background-image: url("wallpaper1.png");
+        background-image: url(wallpaper1.png);
     }
     .center 
     {
-        margin: auto;
+        margin: 10px auto;
         padding: 20px;
         width: 50%;
     }
@@ -74,7 +74,7 @@
           display: block;
           color: #f2f2f2;
           text-align: center;
-          padding: 8px 16px;
+          padding: 10px 8px;
           text-decoration: none;
           font-size: 17px;
           border-radius: 8px;
@@ -95,21 +95,34 @@
     .sticky + .content {
       padding-top: 60px; 
     }
+    .boxy {
+    animation: slide-up 1s ease;
+    }
+    @keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 </style>
 <!---------------------------------------------------------------------------------------------------------------------->
 
-<title>Result box</title>
+<title>ASTRIA - Law Search Engine</title>
 </head>
 
 <body>
-    <div id="navbar">
-        <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.6em 0.8em ;font-family: 'Orbitron'">HELP</a>
-        <a style="float:left;margin: 0.2em 0.2em; font-size: 24px ;font-family: 'Orbitron'"><b>ASTRIA</b></a>
+    <div id="navbar" class="shadow">
+        <a class="active" href="javascript:void(0)" onclick="introJs().start();" style="margin: 0.8em 0.8em ;font-family: 'Orbitron'" align="middle">HELP</a>
+        <a id="go-to-top" style="float:left;margin: 0.2em 0.2em; font-size: 24px ;font-family: 'Orbitron'"><img src="logo.png" width="42" height="42" align="middle"><b>&nbsp ASTRIA </b></a>
     </div>
-    <br>
-    <br>
-    <br>
-        <div class="card w-75 center">
+    <br/>
+    <br/>
+    <br/>
+        <div class="card w-75 center shadow p-3 mb-5 bg-white rounded">
             <div class="container">
                 <form id = "send" action="" method="">
 
@@ -252,8 +265,8 @@
             for(i=0;i<data.length/2;i++){
             var jd = data[i];
             var act = [];
-            for(laden=0;laden<data[i+data.length/2].length;laden++){
-                act.push('<a href="/acts/'+data[i+data.length/2][laden]+'.txt">'+data[i+data.length/2][laden]+'</a>');
+            for(count=0;count<data[i+data.length/2].length;count++){
+                act.push('<a target="blank" href="/acts/'+data[i+data.length/2][count]+'.txt">'+data[i+data.length/2][count]+'</a>');
             };
             var act_num = data[i+data.length/2].length;
             var cat = jd._source.subject.split('| ').join(', ').split('$$$').join(', ');
@@ -265,7 +278,7 @@
             var cit_id = jd._source.cit_id;
             var date = jd._source.date.substring(0,4)+'/'+jd._source.date.substring(4,6)+'/'+jd._source.date.substring(6,8);
             var filenameUrl = 'cases/'+ jd._source.filename + '.txt';
-            $("#cards").append('<br><div class="card w-75 center"><div class="card-body"><h5 class="card-title tooltip" style="color:grey;font-size: 24px"><b>'+title+'</b><span class="tooltiptext" style="font-size: 12px">'+cit_id+'</span></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
+            $("#cards").append('<br><div class="card w-75 center boxy shadow p-3 mb-5 bg-white rounded"><div class="card-body"><h5 class="card-title tooltip" style="color:grey;font-size: 24px"><b>'+title+'</b><span class="tooltiptext" style="font-size: 12px">'+cit_id+'</span></h5><p class="card-text"><table class="table table-sm"><thead><tr><th scope="col" >Judgment</th><th scope="col"> Judge </th><th scope="col">Acts cited <span class="badge badge-primary badge-pill">'+act_num+'</span></th><th scope="col">Categories <span class="badge badge-primary badge-pill">'+cat_num+'</span></th><th scope="col">Date</th></tr></thead><tbody><tr><td id="judgement">'+judgement+'</td><td id="judge">'+judge+'</td><td id="acts">'+act+'</td><td id="cat">'+cat+'</td><td id="date">'+date+'</td></tr></tbody></table><div></div></p><span id="more'+i+'" style="display:none;"><div class="card summary"><h5 class="card-header">Summary</h5><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+replacer(summary)+'</p></div></div></span><br><a class="btn btn-primary" id="myBtn'+i+'" onclick="mySum('+i+')" style="color: white">Read More</a><span>&nbsp;&nbsp;<span><a target="blank" href="'+filenameUrl+'" class="btn btn-primary">Download</a></div></div>');
             };
         };
         function dateModifier(date){
@@ -384,6 +397,12 @@
            
             // })
         };
+        $('#go-to-top').each(function(){
+            $(this).click(function(){ 
+                $('html,body').animate({ scrollTop: 0 }, 'slow');
+                    return false; 
+                });
+        });
     </script>
     <br>
 </body>
