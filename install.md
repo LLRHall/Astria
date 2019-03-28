@@ -38,7 +38,7 @@
 # Running the bert server
 1. Open another terminal and open the main repository.
 2. cd into temp_files `cd temp_files`
-3. Run `bert-serving-start -model_dir ../uncased_L-12_H-768_A-12 -num_worker=1 -max_seq_len=500
+3. Run `bert-serving-start -model_dir ../uncased_L-12_H-768_A-12 -num_worker=1 -max_seq_len=500`
 
 # Running the nodejs server
 1. Open another terminal and open the main repo.
