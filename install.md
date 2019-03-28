@@ -13,11 +13,13 @@
 # Install elastic-search and python dependencies, and running elastic-search server
 1. cd into the main repo, `OpenSoftLLR19`.
 2. Identify `install.sh` and run `chmod +x install.sh`.
-3. Run `sudo install.sh` for installing all the packages for running elastic-search.
+3. Run `sudo ./install.sh` for installing all the packages for running elastic-search.
+4. Press `enter` when prompted.
+5. You will be asked to accept the license when prompted. Press enter to accept the license
 
 
 # Loading the different API endpoints of ElasticSearch is working
-1. Change directory `cd ElasticData`
+1. Open the main folder. Change directory into ElasticData `cd ElasticData`
 2. cd into `cd TheFinalJson`, and run `curl localhost:9200/cases/_bulk -H "Content-type:application/json" -X POST --data-binary @CasesFinal.json`
 3. Go back using `cd ..`
 4. cd into `cd acts` and run `curl localhost:9200/acts/_bulk -H "Content-type:application/json" -X POST --data-binary @Acts.json`
