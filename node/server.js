@@ -33,7 +33,7 @@ app.get('/', function (req,res) {
 })
 
 
-app.post('/acts',function(req,res){
+app.post('/dacts',function(req,res){
 	suggestions = acts.search(req.body.query,{limit:5})
 	// console.log("wad")
 	console.log(req.body.query)
