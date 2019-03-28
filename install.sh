@@ -36,7 +36,8 @@ apt-get install apt-transport-https -y
 echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-6.x.list
 
 # Install elastic-search 
-apt-get update && apt-get install elasticsearch -y
+apt-get update 
+apt-get install elasticsearch -y
 
 # Running Elasticsearch with systemd
 /bin/systemctl daemon-reload
