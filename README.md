@@ -1,1 +1,3 @@
-# LLR Open Soft
+# LLR Open Soft - Astria
+
+Go to `Report.pdf` for overview of the project and `Instructions.pdf` for installaton instructions.
